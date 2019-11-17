@@ -4,11 +4,10 @@ import Deck from './server/deck';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as actions from './action';
+import Table from './components/table';
+import Card from './components/card';
 
-const Card = ({ card }) => {
-  return <div>{card.name}</div>
-}
+import * as actions from './action';
 
 const Cards = (prop) => {
 
@@ -23,75 +22,48 @@ const Cards = (prop) => {
   )
 }
 
-const App = ({ setDeck, setTrump, setPlayersDecks, users }) => {
+const deck = new Deck();
+
+const App = ({ setCards, сards, setTrump, trump }) => {
 
   useEffect(() => {
-    setDeck();
-    setPlayersDecks(users);
-    setTrump();
+    setCards(deck.myCards);
+    setTrump(deck.getTrump());
   }, []);
 
-  const deck = new Deck();
-  const regDeck = deck.get52Deck();
-  const shufeledDeck = deck.shuffle(regDeck);
-  console.log(regDeck);
-  console.log(shufeledDeck);
-
-  const cardsToUser = [];
-  shufeledDeck.forEach((card, i) => {
-    if (i < 6) {
-      cardsToUser.push(shufeledDeck.pop());
-    }
-  })
-
-  console.log(shufeledDeck);
-
+  console.log(deck.cardsLeft());
+  console.log(deck.getTrump());
+  console.log(deck._enemyCards);
+  console.log(сards);
 
   return (
     <div className="App">
-      <Cards cards={cardsToUser} />
-      <Card card={shufeledDeck.pop()} />
-      <Cards cards={cardsToUser} />
+      <Cards cards={deck._enemyCards} />
+      <Card card={trump} />
+      <Cards cards={сards} />
+      <div>{deck.cardsLeft()}</div>
+      <Table />
     </div>
   );
 }
 
 const mapStateToPros = state => {
   return {
-    users: state.users
+    сards: state.сards,
+    trump: state.trump
   }
 }
 
 const mapDispatchToProps = dispatch => {
-  const { setDeck, setTrump, setUsers } = bindActionCreators(actions, dispatch);
-
-  const deck = new Deck();
-  const regDeck = deck.get52Deck();
-  const shufeledDeck = deck.shuffle(regDeck);
+  const { setCards, setTrump } = bindActionCreators(actions, dispatch);
 
   return {
-    setDeck: () => {
-      setDeck(shufeledDeck);
+    setCards: (cards) => {
+      setCards(cards)
     },
 
-    setTrump: () => {
-      const deck = [...shufeledDeck];
-      setTrump(deck.pop());
-      setDeck(deck);
-    },
-
-    setPlayersDecks: (users) => {
-      const deck = [...shufeledDeck];
-
-      // const usersDecks = {};
-
-      // for (let i = 1; i <= users; i++) {
-      //   for (let j = 0; j < 6; j++) {
-      //     usersDecks
-      //   }
-      // }
-
-      // setPlayersDecks(users);
+    setTrump: (trump) => {
+      setTrump(trump);
     }
   }
 }

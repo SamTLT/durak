@@ -1,7 +1,28 @@
-export const setDeck = (payload) => ({ type: 'SET_DECK', payload });
+export const setCards = (payload) => ({ type: 'SET_CARDS', payload });
 
 export const setTrump = (payload) => ({ type: 'SET_TRUMP', payload });
 
-export const setUsers = (payload) => ({ type: 'SET_USERS', payload });
+export const putCardOnTable = (payload) => {
+    return {
+        type: 'PUT_CARD_ON_TABLE',
+        payload
+    }
+};
 
-export const setPlayersDecks = (payload) => ({ type: 'SET_PLAYERS_DECKS', payload });
+export const removeCard = (cardToRemove) => (dispatch, getState) => {
+
+    const { сards } = getState();
+    const key = cardToRemove.key;
+    const idx = сards.findIndex(item => item.key === key);
+
+    if (idx === -1) {
+        return;
+    }
+
+    const newCards = [...сards.slice(0, idx), ...сards.slice(idx + 1)];
+
+    dispatch(setCards(newCards));
+}
+
+
+

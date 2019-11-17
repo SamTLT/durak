@@ -1,8 +1,16 @@
 export default class Deck {
 
-    get52Deck = () => {
+    constructor() {
+        this._initialDeck = this.shuffle(this.get32Deck());
+        this._deck = [...this._initialDeck];
+        this._trump = this._setTrump();
+        this._enemyCards = this.getCards(6);
+        this.myCards = this.getCards(6);
+    }
+
+    get32Deck = () => {
         const types = ['clubs', 'diamonds', 'hearts', 'spades'];
-        const minRank = 2;
+        const minRank = 6;
         const maxRank = 14;
 
         const rankNames = {
@@ -13,7 +21,6 @@ export default class Deck {
         }
 
         return this._createDeck(types, minRank, maxRank, rankNames);
-
     }
 
     _createDeck = (types, minRank, maxRank, rankNames) => {
@@ -48,5 +55,27 @@ export default class Deck {
         }
         return array;
     }
+
+    _setTrump = () => {
+        return this._deck.pop();
+    }
+
+    getTrump = () => {
+        return this._trump;
+    }
+
+    getCards = (num) => {
+        const cards = [];
+        for (let i = 0; i < num; i++) {
+            cards.push(this._deck.pop());
+        }
+        return cards;
+    }
+
+    cardsLeft = () => {
+        return this._deck.length;
+    }
+
+
 
 }

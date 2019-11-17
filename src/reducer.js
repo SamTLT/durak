@@ -1,15 +1,16 @@
 const initialState = {
-    deck: [],
+    сards: [],
     trump: {},
-    users: 2
-}
+    tableToBeat: [],
+    tableBeated: []
+};
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SET_DECK':
+        case 'SET_CARDS':
             return {
                 ...state,
-                deck: action.payload
+                сards: action.payload
             };
 
         case 'SET_TRUMP':
@@ -18,16 +19,10 @@ const reducer = (state = initialState, action) => {
                 trump: action.payload
             };
 
-        case 'SET_USERS':
+        case 'PUT_CARD_ON_TABLE':
             return {
                 ...state,
-                users: action.payload
-            };
-
-        case 'SET_PLAYERS_DECKS':
-            return {
-                ...state,
-                playersDecks: action.payload
+                tableToBeat: [...state.tableToBeat, action.payload]
             };
 
         default:
