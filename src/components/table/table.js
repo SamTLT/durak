@@ -15,6 +15,7 @@ const Table = ({ tableToBeat, tableBeated }) => {
 
     return <ul>
         {toBeat}
+        <li>-------</li>
         {beated}
     </ul>
 }

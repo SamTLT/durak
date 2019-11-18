@@ -3,22 +3,28 @@ import Deck from './deck';
 const deck = new Deck();
 
 export default class Logic {
-    whatCanUse(tableToBeat, tableBeated, cards, status) {
+    cardsToUse = (tableToBeat, tableBeated, cards, status) => {
         const table = [...tableToBeat, ...tableBeated];
         let cardsToUse = [];
 
         if (status === 'attack') {
             if (table.length === 0) {
-                cardsToUse = this._getAllCards();
+                cardsToUse = cards;
 
             } else if (table.length > 0) {
-                table.forEach(card => {
-                    if (card.rank) {
-                        cardsToUse.push(card);
+                table.forEach(cardTable => {
+                    console.log(cardTable);
+                    if (cardTable.rank) {
+                        cards.forEach(card => {
+                            if ((card.rank === cardTable.rank ||
+                                card.rank === cardTable.rank - 100 ||
+                                card.rank - 100 === cardTable.rank)) {
+                                cardsToUse.push(card);
+                            }
+                        })
                     }
                 })
             }
-            status = 'hold';
         }
 
         if (status === 'hold') {
@@ -29,10 +35,9 @@ export default class Logic {
             const cardToBeat = tableToBeat[tableToBeat.length - 1];
             console.log(cardToBeat);
             cards.forEach(card => {
-                if ((card.rank > cardToBeat.rank
-                    && card.type === cardToBeat.type)
-                    || (card.rank > cardToBeat.rank
-                        && card.rank > 100)) {
+                if (
+                    (card.rank > cardToBeat.rank && card.type === cardToBeat.type)
+                    || (card.rank > cardToBeat.rank && card.rank > 100)) {
                     cardsToUse.push(card);
                 }
             })
@@ -49,24 +54,31 @@ export default class Logic {
         return deck.get32Deck(deck.minRank, deck.maxRank, deck.types);
     }
 
-    enemyAction(enemyCards, trump, tableToBeat, tableBeated, status) {
-        if (status === 'hold') {
-            const toUse = this.whatCanUse(tableToBeat, tableBeated, enemyCards, 'defense');
+    enemyAction = (enemyCards, trump, tableToBeat, tableBeated) => {
 
-            if (toUse.cardsToUse.length === 0) {
-                return false;
-            } else {
-                let minRankedCard;
-                toUse.cardsToUse.forEach(card => {
-                    if (!minRankedCard) {
-                        minRankedCard = card;
-                    }
-                    if (minRankedCard.rank > card.rank) {
-                        minRankedCard = card;
-                    }
-                })
-                return minRankedCard;
-            }
+        const toUse = this.cardsToUse(tableToBeat, tableBeated, enemyCards, 'defense');
+
+        console.log(toUse);
+
+        if (toUse.cardsToUse.length === 0) {
+            return { card: false };
+        } else {
+            return { card: this._getMinRankedCard(toUse.cardsToUse) };
         }
+
+    }
+
+    _getMinRankedCard = (cards) => {
+        let minRankedCard;
+        cards.forEach(card => {
+            if (!minRankedCard) {
+                minRankedCard = card;
+            }
+            if (minRankedCard.rank > card.rank) {
+                minRankedCard = card;
+            }
+        });
+
+        return minRankedCard;
     }
 } 
