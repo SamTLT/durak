@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Deck from './server/deck';
+import Logic from './server/logic';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -12,7 +13,7 @@ import * as actions from './action';
 const Cards = (prop) => {
 
   const cardsArr = prop.cards.map(card => {
-    return <li><Card card={card} /></li>
+    return <li key={card.key}><Card card={card} /></li>
   })
 
   return (
@@ -23,18 +24,28 @@ const Cards = (prop) => {
 }
 
 const deck = new Deck();
+const logic = new Logic();
 
-const App = ({ setCards, сards, setTrump, trump }) => {
+const App = ({ setCards, сards, setTrump, trump, setWhatCanUse, status, setEnemyCards, enemyCards, tableToBeat, tableBeated }) => {
 
   useEffect(() => {
     setCards(deck.myCards);
+    setEnemyCards(deck._enemyCards);
     setTrump(deck.getTrump());
-  }, []);
+    setWhatCanUse(deck.deck);
+  }, [setCards, setEnemyCards, setTrump, setWhatCanUse, сards]);
 
-  console.log(deck.cardsLeft());
-  console.log(deck.getTrump());
-  console.log(deck._enemyCards);
-  console.log(сards);
+  useEffect(() => {
+    console.log('status has been changed');
+    console.log(status);
+    if (status === 'hold') {
+      setTimeout(() => {
+        const enemyCard = logic.enemyAction(enemyCards, trump, tableToBeat, tableBeated, status);
+        console.log(enemyCard);
+      }, 500);
+    }
+
+  }, [enemyCards, status, tableBeated, tableToBeat, trump]);
 
   return (
     <div className="App">
@@ -50,12 +61,17 @@ const App = ({ setCards, сards, setTrump, trump }) => {
 const mapStateToPros = state => {
   return {
     сards: state.сards,
-    trump: state.trump
+    trump: state.trump,
+    status: state.status,
+    enemyCards: state.enemyCards,
+    tableToBeat: state.tableToBeat,
+    tableBeated: state.tableBeated,
+
   }
 }
 
 const mapDispatchToProps = dispatch => {
-  const { setCards, setTrump } = bindActionCreators(actions, dispatch);
+  const { setCards, setTrump, setWhatCanUse, setEnemyCards } = bindActionCreators(actions, dispatch);
 
   return {
     setCards: (cards) => {
@@ -64,6 +80,14 @@ const mapDispatchToProps = dispatch => {
 
     setTrump: (trump) => {
       setTrump(trump);
+    },
+
+    setWhatCanUse: (whatCanUse) => {
+      setWhatCanUse(whatCanUse);
+    },
+
+    setEnemyCards: (cards) => {
+      setEnemyCards(cards);
     }
   }
 }

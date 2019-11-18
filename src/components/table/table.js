@@ -4,14 +4,19 @@ import { connect } from 'react-redux';
 import './table.css';
 
 const Table = ({ tableToBeat, tableBeated }) => {
-    return <div>
-        {tableToBeat.map(card => {
-            return card.name;
-        })}
-        {tableBeated.map(card => {
-            return card.name;
-        })}
-    </div>
+
+    const toBeat = tableToBeat.map(card => {
+        return <li key={card.key}>{card.name}</li>;
+    });
+
+    const beated = tableBeated.map(card => {
+        return <li key={card.key}>{card.name}</li>
+    });
+
+    return <ul>
+        {toBeat}
+        {beated}
+    </ul>
 }
 
 const mapStateToPros = state => {
