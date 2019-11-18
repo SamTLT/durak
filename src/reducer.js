@@ -1,10 +1,12 @@
 const initialState = {
     cards: [],
+    deck: [],
     enemyCards: [],
     trump: {},
     tableToBeat: [],
     tableBeated: [],
     status: 'attack',
+    enemyStatus: 'defense',
     cardsToUse: []
 };
 
@@ -14,6 +16,12 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 cards: action.payload
+            };
+
+        case 'SET_DECK':
+            return {
+                ...state,
+                deck: action.payload
             };
 
         case 'SET_ENEMY_CARDS':
@@ -34,6 +42,12 @@ const reducer = (state = initialState, action) => {
                 status: action.payload
             };
 
+        case 'SET_ENEMY_STATUS':
+            return {
+                ...state,
+                enemyStatus: action.payload
+            };
+
         case 'SET_CARDS_TO_USE':
             return {
                 ...state,
@@ -50,6 +64,13 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 tableBeated: [...state.tableBeated, action.payload]
+            };
+
+        case 'CLEAN_TABLE':
+            return {
+                ...state,
+                tableBeated: [],
+                tableToBeat: []
             };
 
         default:

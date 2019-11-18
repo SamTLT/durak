@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import Table from './components/table';
 import Card from './components/card';
+import Button from './components/button';
 
 import * as actions from './action';
 
@@ -24,19 +25,24 @@ const Cards = (prop) => {
 
 const deck = new Deck();
 
-const App = ({ cards, trump, enemyCards, setInitials }) => {
+const App = ({ cards, trump, enemyCards, setInitials, status }) => {
 
   useEffect(() => {
     setInitials(deck);
     console.log('setting initials');
   }, [setInitials]);
 
+  useEffect(() => {
+    console.log('status has been changed:', status);
+  }, [status]);
+
   return (
     <div className="App">
       <Cards cards={enemyCards} />
       <Card card={trump} />
+      <div>{deck.cardsLeft()} cards left</div>
       <Cards cards={cards} />
-      <div>{deck.cardsLeft()}</div>
+      <Button title="Конец хода" />
       <Table />
     </div>
   );
@@ -46,7 +52,8 @@ const mapStateToPros = state => {
   return {
     cards: state.cards,
     trump: state.trump,
-    enemyCards: state.enemyCards
+    enemyCards: state.enemyCards,
+    status: state.status
   }
 }
 

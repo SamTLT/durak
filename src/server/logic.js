@@ -31,6 +31,10 @@ export default class Logic {
             cardsToUse = [];
         }
 
+        if (status === 'defeated') {
+            cardsToUse = [];
+        }
+
         if (status === 'defense') {
             const cardToBeat = tableToBeat[tableToBeat.length - 1];
             console.log(cardToBeat);
@@ -54,16 +58,17 @@ export default class Logic {
         return deck.get32Deck(deck.minRank, deck.maxRank, deck.types);
     }
 
-    enemyAction = (enemyCards, trump, tableToBeat, tableBeated) => {
+    enemyAction = (enemyCards, tableToBeat, tableBeated, myStatus, enemyStatus) => {
+        console.log(enemyStatus)
 
-        const toUse = this.cardsToUse(tableToBeat, tableBeated, enemyCards, 'defense');
+        const toUse = this.cardsToUse(tableToBeat, tableBeated, enemyCards, enemyStatus);
 
         console.log(toUse);
 
         if (toUse.cardsToUse.length === 0) {
-            return { card: false };
+            return { card: false, status: 'defeated' };
         } else {
-            return { card: this._getMinRankedCard(toUse.cardsToUse) };
+            return { card: this._getMinRankedCard(toUse.cardsToUse), status: enemyStatus };
         }
 
     }
