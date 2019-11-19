@@ -14,7 +14,7 @@ const Card = ({ card, putCardOnTable, beatCardOnTable, cardsToUse, status }) => 
     const canIUse = cardsToUse.findIndex(item => item.key === card.key);
 
     if (canIUse === -1 || status === 'hold') {
-        return <div className={styles['card-unavable']} >{card.name}</div>
+        return <div className={`${styles['card']} ${styles['card-unavable']}`} >{card.name}</div>
     }
 
     let onClick;

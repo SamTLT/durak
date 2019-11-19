@@ -7,25 +7,13 @@ import { bindActionCreators } from 'redux';
 import Table from './components/table';
 import Card from './components/card';
 import Button from './components/button';
+import Cards from './components/cards';
 
 import * as actions from './action';
 
-const Cards = (prop) => {
-
-  const cardsArr = prop.cards.map(card => {
-    return <li key={card.key}><Card card={card} /></li>
-  })
-
-  return (
-    <ul>
-      {cardsArr}
-    </ul>
-  )
-}
-
 const deck = new Deck();
 
-const App = ({ cards, trump, enemyCards, setInitials, status, receiveCardFromServer, deckState, winner }) => {
+const App = ({ cards, trump, enemyCards, setInitials, deckState, winner }) => {
 
   useEffect(() => {
     setInitials(deck);
