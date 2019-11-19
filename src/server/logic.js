@@ -65,10 +65,23 @@ export default class Logic {
 
         console.log(toUse);
 
-        if (toUse.cardsToUse.length === 0) {
-            return { card: false, status: 'defeated' };
-        } else {
-            return { card: this._getMinRankedCard(toUse.cardsToUse), status: enemyStatus };
+        if (enemyStatus === 'defense') {
+            if (toUse.cardsToUse.length === 0) {
+                return { card: false, status: 'defeated' };
+
+            } else {
+                return { card: this._getMinRankedCard(toUse.cardsToUse), status: enemyStatus };
+            }
+
+        }
+
+        if (enemyStatus === 'attack') {
+            if (toUse.cardsToUse.length === 0) {
+                return { card: false, status: 'hold' };
+
+            } else {
+                return { card: this._getMinRankedCard(toUse.cardsToUse), status: enemyStatus };
+            }
         }
 
     }

@@ -25,7 +25,7 @@ const Cards = (prop) => {
 
 const deck = new Deck();
 
-const App = ({ cards, trump, enemyCards, setInitials, status }) => {
+const App = ({ cards, trump, enemyCards, setInitials, status, receiveCardFromServer }) => {
 
   useEffect(() => {
     setInitials(deck);
@@ -34,7 +34,8 @@ const App = ({ cards, trump, enemyCards, setInitials, status }) => {
 
   useEffect(() => {
     console.log('status has been changed:', status);
-  }, [status]);
+    receiveCardFromServer(status)
+  }, [receiveCardFromServer, status]);
 
   return (
     <div className="App">
@@ -58,11 +59,15 @@ const mapStateToPros = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-  const { setInitials } = bindActionCreators(actions, dispatch);
+  const { setInitials, receiveCardFromServer } = bindActionCreators(actions, dispatch);
 
   return {
     setInitials: (deck) => {
       setInitials(deck);
+    },
+
+    receiveCardFromServer: () => {
+      receiveCardFromServer();
     }
   }
 }
