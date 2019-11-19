@@ -13,7 +13,6 @@ export default class Logic {
 
             } else if (table.length > 0) {
                 table.forEach(cardTable => {
-                    console.log(cardTable);
                     if (cardTable.rank) {
                         cards.forEach(card => {
                             if ((card.rank === cardTable.rank ||
@@ -37,7 +36,6 @@ export default class Logic {
 
         if (status === 'defense') {
             const cardToBeat = tableToBeat[tableToBeat.length - 1];
-            console.log(cardToBeat);
             cards.forEach(card => {
                 if (
                     (card.rank > cardToBeat.rank && card.type === cardToBeat.type)
@@ -59,11 +57,8 @@ export default class Logic {
     }
 
     enemyAction = (enemyCards, tableToBeat, tableBeated, myStatus, enemyStatus) => {
-        console.log(enemyStatus)
 
         const toUse = this.cardsToUse(tableToBeat, tableBeated, enemyCards, enemyStatus);
-
-        console.log(toUse);
 
         if (enemyStatus === 'defense') {
             if (toUse.cardsToUse.length === 0) {

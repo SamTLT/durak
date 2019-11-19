@@ -25,12 +25,16 @@ const Cards = (prop) => {
 
 const deck = new Deck();
 
-const App = ({ cards, trump, enemyCards, setInitials, status, receiveCardFromServer, deckState }) => {
+const App = ({ cards, trump, enemyCards, setInitials, status, receiveCardFromServer, deckState, winner }) => {
 
   useEffect(() => {
     setInitials(deck);
     console.log('setting initials');
   }, [setInitials]);
+
+  if (winner) {
+    return <h1>{winner} win!</h1>
+  }
 
   return (
     <div className="App">
@@ -50,7 +54,8 @@ const mapStateToPros = state => {
     trump: state.trump,
     enemyCards: state.enemyCards,
     status: state.status,
-    deckState: state.deck
+    deckState: state.deck,
+    winner: state.winner
   }
 }
 

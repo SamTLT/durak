@@ -16,6 +16,8 @@ export const setCardsToUse = (payload) => ({ type: 'SET_CARDS_TO_USE', payload }
 
 export const cleanTable = () => ({ type: 'CLEAN_TABLE' });
 
+export const setWinner = (payload) => ({ type: 'SET_WINNER', payload });
+
 export const putCardOnTable = (payload) => {
     return {
         type: 'PUT_CARD_ON_TABLE',
@@ -39,6 +41,16 @@ export const setInitials = (deck) => (dispatch, getState) => {
     dispatch(setCardsToUse(deck.myCards));
 }
 
+export const checkWinner = (user, cards) => (dispatch, getState) => {
+
+    const { deck } = getState();
+
+    if (deck.length === 0 && cards.length === 0) {
+        dispatch(setWinner(user));
+    }
+
+}
+
 export const endTurn = (status) => (dispatch, getState) => {
 
     const takeCards = (cards) => {
@@ -49,13 +61,14 @@ export const endTurn = (status) => (dispatch, getState) => {
         const cardsNum = 6 - cards.length;
 
         for (let i = 0; i < cardsNum; i++) {
-            cardsToTake.push(deck.pop());
+            const card = deck.pop();
+            if (card) {
+                cardsToTake.push(deck.pop(card));
+            }
+
         }
 
         dispatch(setDeck([...deck]));
-
-        console.log(cardsToTake);
-        console.log(cardsNum);
 
         return cardsToTake;
 
@@ -63,7 +76,6 @@ export const endTurn = (status) => (dispatch, getState) => {
 
     if (status === 'attack') {
         const logic = new Logic();
-        console.log('hmmmm');
         const { cards, enemyCards, enemyStatus, tableToBeat, tableBeated } = getState();
 
         let cardsNew = [...cards, ...takeCards(cards)];
@@ -74,7 +86,6 @@ export const endTurn = (status) => (dispatch, getState) => {
             enemyCardsNew = [...enemyCards, ...tableToBeat, ...tableBeated];
 
             const whatCanUse = logic.cardsToUse([], [], getState().cards, getState().status);
-            console.log(whatCanUse);
             dispatch(setCardsToUse(whatCanUse.cardsToUse));
             dispatch(setEnemyStatus('defense'));
 
@@ -86,9 +97,11 @@ export const endTurn = (status) => (dispatch, getState) => {
             dispatch(setEnemyStatus('attack'));
         }
 
-        console.log([tableToBeat.length, tableBeated.length]);
-
         dispatch(setEnemyCards(enemyCardsNew));
+
+        dispatch(checkWinner('Player', cards));
+        dispatch(checkWinner('Enemy', enemyCardsNew));
+
         dispatch(cleanTable());
         dispatch(receiveCardFromServer());
 
@@ -96,18 +109,17 @@ export const endTurn = (status) => (dispatch, getState) => {
 
     if (status === 'defense') {
         const logic = new Logic();
-        console.log('hmmmm defffff');
         const { cards, enemyCards, tableToBeat, tableBeated } = getState();
 
         if (tableToBeat.length === tableBeated.length) {
             let enemyCardsNew = [...enemyCards, ...takeCards(enemyCards)];
             dispatch(setEnemyCards(enemyCardsNew));
+            dispatch(checkWinner('Enemy', enemyCardsNew));
 
             let cardsNew = [...cards, ...takeCards(cards)];
             dispatch(setCards(cardsNew));
 
             const whatCanUse = logic.cardsToUse([], [], getState().cards, 'attack');
-            console.log(whatCanUse);
             dispatch(setCardsToUse(whatCanUse.cardsToUse));
             dispatch(setStatus('attack'));
             dispatch(setEnemyStatus('defense'));
@@ -121,12 +133,14 @@ export const endTurn = (status) => (dispatch, getState) => {
 
             let enemyCardsNew = [...enemyCards, ...takeCards(enemyCards)];
             dispatch(setEnemyCards(enemyCardsNew));
+            dispatch(checkWinner('Enemy', enemyCardsNew));
 
             dispatch(cleanTable());
             dispatch(receiveCardFromServer());
         }
 
-        console.log([tableToBeat.length, tableBeated.length]);
+        dispatch(checkWinner('Player', cards));
+
 
 
 
@@ -173,7 +187,6 @@ export const sendCardOnServer = (card) => (dispatch, getState) => {
     const { enemyCards, enemyStatus, cards, tableToBeat, tableBeated, status } = getState();
 
     const whatCanUse = logic.cardsToUse(tableToBeat, tableBeated, cards, status);
-    console.log(whatCanUse);
 
     dispatch(setCardsToUse(whatCanUse.cardsToUse));
 
@@ -181,15 +194,11 @@ export const sendCardOnServer = (card) => (dispatch, getState) => {
         setTimeout(() => {
             const response = logic.enemyAction(enemyCards, tableToBeat, tableBeated, status, enemyStatus);
 
-            console.log('lol');
-            console.log(response);
             if (response.card) {
                 dispatch(beatCardOnTable(response.card));
                 dispatch(removeEnemyCard(response.card));
 
                 const whatCanUse2 = logic.cardsToUse(getState().tableToBeat, getState().tableBeated, getState().cards, getState().status);
-                console.log(whatCanUse2);
-                console.log(getState().cards);
 
                 dispatch(setCardsToUse(whatCanUse2.cardsToUse));
             } else {
@@ -203,19 +212,19 @@ export const sendCardOnServer = (card) => (dispatch, getState) => {
         setTimeout(() => {
             const response = logic.enemyAction(enemyCards, tableToBeat, tableBeated, status, enemyStatus);
 
-            console.log('lol');
-            console.log(response);
             if (response.card) {
                 dispatch(putCardOnTable(response.card));
                 dispatch(removeEnemyCard(response.card));
 
                 const whatCanUse2 = logic.cardsToUse(getState().tableToBeat, getState().tableBeated, getState().cards, getState().status);
-                console.log(whatCanUse2);
-                console.log(getState().cards);
 
                 dispatch(setCardsToUse(whatCanUse2.cardsToUse));
             } else {
                 dispatch(setEnemyStatus(response.status));
+                if (tableToBeat.length === tableBeated.length) {
+                    dispatch(setCardsToUse([]));
+                }
+
             }
 
         }, 0);
@@ -226,28 +235,17 @@ export const receiveCardFromServer = () => (dispatch, getState) => {
 
     const logic = new Logic();
 
-    const { enemyCards, enemyStatus, cards, tableToBeat, tableBeated, status } = getState();
-
-    // const whatCanUse = logic.cardsToUse(tableToBeat, tableBeated, cards, status);
-    // console.log(whatCanUse);
-
-    console.log('receivecard', status);
-
-    // dispatch(setCardsToUse(whatCanUse.cardsToUse));
+    const { enemyCards, enemyStatus, tableToBeat, tableBeated, status } = getState();
 
     if (status === 'defense') {
         setTimeout(() => {
             const response = logic.enemyAction(enemyCards, tableToBeat, tableBeated, status, enemyStatus);
 
-            console.log('lol');
-            console.log(response);
             if (response.card) {
                 dispatch(putCardOnTable(response.card));
                 dispatch(removeEnemyCard(response.card));
 
                 const whatCanUse2 = logic.cardsToUse(getState().tableToBeat, [], getState().cards, getState().status);
-                console.log(whatCanUse2);
-                console.log(getState().cards);
 
                 dispatch(setCardsToUse(whatCanUse2.cardsToUse));
             } else {

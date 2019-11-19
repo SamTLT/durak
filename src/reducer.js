@@ -7,11 +7,18 @@ const initialState = {
     tableBeated: [],
     status: 'attack',
     enemyStatus: 'defense',
-    cardsToUse: []
+    cardsToUse: [],
+    winner: null
 };
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case 'SET_WINNER':
+            return {
+                ...state,
+                winner: action.payload
+            };
+
         case 'SET_CARDS':
             return {
                 ...state,
