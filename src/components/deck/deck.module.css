@@ -17,3 +17,23 @@
     /* border-radius: 7px; */
     -webkit-filter: brightness(80%);
 }
+
+.turn {
+    
+}
+
+.trump {
+    
+}
+
+.deck-full {
+    position: relative;
+}
+
+.deck-closed {
+    transform: rotate(90deg);
+    position: absolute;
+    top:-25px;
+    left: 0;
+    z-index: 999;
+}

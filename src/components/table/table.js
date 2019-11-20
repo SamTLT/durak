@@ -4,14 +4,15 @@ import { connect } from 'react-redux';
 import Card from '../card';
 
 import styles from './table.module.css';
+
 const Table = ({ tableToBeat, tableBeated }) => {
 
     const toBeat = tableToBeat.map(card => {
-        return <div key={card.key}><Card card={card} /></div>;
+        return <div key={card.key} className={styles['card-to-beat']}><Card card={card} /></div>;
     });
 
     const beated = tableBeated.map(card => {
-        return <div key={card.key}><Card card={card} /></div>
+        return <div key={card.key} className={styles['card-beated']}><Card card={card} /></div>
     });
 
     const toShow = toBeat.map((cardToBeat, i) => {

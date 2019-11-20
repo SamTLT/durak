@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import styles from './button.module.css';
-import * as actions from '../../action';
+import * as actions from '../../actions';
 
 const Button = ({ status, title, endTurn, tableToBeat }) => {
 

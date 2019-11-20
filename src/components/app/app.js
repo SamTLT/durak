@@ -1,22 +1,22 @@
 import React, { useEffect } from 'react';
-import Deck from './server/deck';
+import DeckServise from '../../server/deck';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import Table from './components/table';
-import Trump from './components/trump';
-import Button from './components/button';
-import Cards from './components/cards';
+import Table from '../table';
+import Deck from '../deck';
+import Cards from '../cards';
 
-import * as actions from './action';
+import * as actions from '../../actions';
+import styles from './app.module.css';
 
-const deck = new Deck();
+const deckData = new DeckServise();
 
 const App = ({ cards, trump, enemyCards, setInitials, winner }) => {
 
   useEffect(() => {
-    setInitials(deck);
+    setInitials(deckData);
     console.log('setting initials');
   }, [setInitials]);
 
@@ -25,10 +25,10 @@ const App = ({ cards, trump, enemyCards, setInitials, winner }) => {
   }
 
   return (
-    <div className="App">
+    <div className={styles['app']}>
       <Cards cards={enemyCards} type="enemy" />
       <div style={{ display: 'flex', justifyContent: 'start', alignItems: 'center' }}>
-        <Trump card={trump} />
+        <Deck card={trump} />
         <Table />
       </div>
       <Cards cards={cards} type="player" />

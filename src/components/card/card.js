@@ -3,20 +3,38 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import styles from './card.module.css';
-import * as actions from '../../action';
+import * as actions from '../../actions';
 
-const CardToShow = ({ onClick, card, pointer, isAvailable }) => {
+const CardToShow = ({ onClick, card, pointer, isAvailable, type }) => {
 
     return <div className={`${styles['card']} 
                             ${pointer ? styles['pointer'] : null} 
                             ${isAvailable ? null : styles['card-unavailable']}`}
-        onClick={onClick ? () => onClick(card) : null}
-        style={setBackground(card)}>
+        onClick={isAvailable ? () => onClick(card) : null}
+        style={setBackground(card, type)}>
         {/* {card.name} */}
     </div>
 }
 
-const setBackground = (card) => {
+const setBackground = (card, type) => {
+
+    if (type === 'enemy' || type === 'back') {
+        return {
+            background: `url('/img/back/back.svg')`,
+            backgroundSize: "100% 100%"
+        }
+    }
+
+    if (type === 'clubs' || type === 'diamonds' ||
+        type === 'hearts' || type === 'spades') {
+        return {
+            background: `url('/img/types/${type}.svg')`,
+            backgroundSize: "200% 200%",
+            backgroundPosition: 'center center',
+            border: 'solid 1px black',
+            borderRadius: '5px'
+        }
+    }
 
     if (card.name) {
         let rank = card.name[0];
@@ -49,19 +67,28 @@ const selectOnClick = (status, func1, func2) => {
 
 const Card = ({ card, putCardOnTable, beatCardOnTable, cardsToUse, status, type }) => {
 
-
     console.log(type);
-
-    const canIUse = cardsToUse.findIndex(item => item.key === card.key);
+    let onClick = (type) => console.log(type);
     let isAvailable = true;
+    let pointer = true;
 
-    if (canIUse === -1 || status === 'hold') {
-        isAvailable = false;
+    if (type === 'player') {
+        const canIUse = cardsToUse.findIndex(item => item.key === card.key);
+
+
+        if (canIUse === -1 || status === 'hold') {
+            isAvailable = false;
+            pointer = false;
+        }
+
+        onClick = selectOnClick(status, putCardOnTable, beatCardOnTable);
+
+    } else {
+        pointer = false;
     }
 
-    const onClick = selectOnClick(status, putCardOnTable, beatCardOnTable);
 
-    return <CardToShow onClick={onClick} card={card} pointer={true} isAvailable={isAvailable} />
+    return <CardToShow onClick={onClick} card={card} pointer={pointer} isAvailable={isAvailable} type={type} />
 
 }
 

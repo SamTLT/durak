@@ -1,0 +1,13 @@
+<svg width="240" height="336" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="card" preserveAspectRatio="none">
+ <symbol preserveAspectRatio="xMinYMid" viewBox="-500 -500 1000 1000" id="DA">
+  <path id="svg_1" fill="none" stroke-miterlimit="1.5" stroke-linecap="square" stroke-width="80" stroke="red" d="m-270,460l160,0m-90,-10l200,-910l200,910m-90,10l160,0m-390,-330l240,0"/>
+ </symbol>
+ <symbol preserveAspectRatio="xMinYMid" viewBox="-600 -600 1200 1200" id="D">
+  <path id="svg_2" fill="red" d="m-400,0c50,0 400,-450 400,-500c0,50 350,500 400,500c-50,0 -400,450 -400,500c0,-50 -350,-500 -400,-500z"/>
+ </symbol>
+ <g>
+  <title>Layer 1</title>
+  <rect id="svg_3" stroke="black" fill="white" ry="12" rx="12" y="0.32303" x="0.41" height="335" width="239"/>
+  <use id="svg_4" y="132.82303" x="84.91" width="70" height="70" xlink:href="#D"/>
+ </g>
+</svg>
