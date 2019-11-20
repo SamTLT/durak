@@ -186,6 +186,8 @@ export const sendCardOnServer = (card) => (dispatch, getState) => {
 
     const { enemyCards, enemyStatus, cards, tableToBeat, tableBeated, status } = getState();
 
+    dispatch(checkWinner('Player', cards));
+
     const whatCanUse = logic.cardsToUse(tableToBeat, tableBeated, cards, status);
 
     dispatch(setCardsToUse(whatCanUse.cardsToUse));
@@ -213,17 +215,30 @@ export const sendCardOnServer = (card) => (dispatch, getState) => {
             const response = logic.enemyAction(enemyCards, tableToBeat, tableBeated, status, enemyStatus);
 
             if (response.card) {
+
+                //PC will not throw cards if I don't have any (checking for winning)
+                dispatch(checkWinner('Player', getState().cards));
+                dispatch(checkWinner('Enemy', getState().enemyCards));
+
                 dispatch(putCardOnTable(response.card));
                 dispatch(removeEnemyCard(response.card));
 
                 const whatCanUse2 = logic.cardsToUse(getState().tableToBeat, getState().tableBeated, getState().cards, getState().status);
 
                 dispatch(setCardsToUse(whatCanUse2.cardsToUse));
+
+
             } else {
                 dispatch(setEnemyStatus(response.status));
                 if (tableToBeat.length === tableBeated.length) {
                     dispatch(setCardsToUse([]));
                 }
+
+                //PC finishes it's turn automaticaly if does not have ane cards to throw
+                setTimeout(() => {
+                    dispatch(endTurn(status));
+                }, 500);
+
 
             }
 

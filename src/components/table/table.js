@@ -1,23 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import './table.css';
+import Card from '../card';
 
+import styles from './table.module.css';
 const Table = ({ tableToBeat, tableBeated }) => {
 
     const toBeat = tableToBeat.map(card => {
-        return <li key={card.key}>{card.name}</li>;
+        return <div key={card.key}><Card card={card} /></div>;
     });
 
     const beated = tableBeated.map(card => {
-        return <li key={card.key}>{card.name}</li>
+        return <div key={card.key}><Card card={card} /></div>
     });
 
-    return <ul>
-        {toBeat}
-        <li>-------</li>
-        {beated}
-    </ul>
+    const toShow = toBeat.map((cardToBeat, i) => {
+        return <div className='couple'>{cardToBeat} {beated[i] ? beated[i] : null}</div>
+    })
+
+    return (<div className={styles['table']}>
+
+        <div className={styles['couples']}>
+            {toShow}
+        </div>
+    </div >
+    )
 }
 
 const mapStateToPros = state => {

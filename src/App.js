@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import Table from './components/table';
-import Card from './components/card';
+import Trump from './components/trump';
 import Button from './components/button';
 import Cards from './components/cards';
 
@@ -13,7 +13,7 @@ import * as actions from './action';
 
 const deck = new Deck();
 
-const App = ({ cards, trump, enemyCards, setInitials, deckState, winner }) => {
+const App = ({ cards, trump, enemyCards, setInitials, winner }) => {
 
   useEffect(() => {
     setInitials(deck);
@@ -26,13 +26,14 @@ const App = ({ cards, trump, enemyCards, setInitials, deckState, winner }) => {
 
   return (
     <div className="App">
-      <Cards cards={enemyCards} />
-      <Card card={trump} />
-      <div>{deckState.length} cards left</div>
-      <Cards cards={cards} />
-      <Button title="Конец хода" />
-      <Table />
-    </div>
+      <Cards cards={enemyCards} type="enemy" />
+      <div style={{ display: 'flex', justifyContent: 'start', alignItems: 'center' }}>
+        <Trump card={trump} />
+        <Table />
+      </div>
+      <Cards cards={cards} type="player" />
+
+    </div >
   );
 }
 
@@ -42,7 +43,6 @@ const mapStateToPros = state => {
     trump: state.trump,
     enemyCards: state.enemyCards,
     status: state.status,
-    deckState: state.deck,
     winner: state.winner
   }
 }

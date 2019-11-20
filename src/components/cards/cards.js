@@ -4,10 +4,10 @@ import styles from './cards.module.css';
 
 import Card from '../card';
 
-const Cards = (prop) => {
+const Cards = (props) => {
 
-    const cardsArr = prop.cards.map(card => {
-        return <li key={card.key}><Card card={card} /></li>
+    const cardsArr = props.cards.map(card => {
+        return <li key={card.key}><Card card={card} type={props.type} /></li>
     })
 
     return (

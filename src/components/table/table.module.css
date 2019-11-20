@@ -1,0 +1,9 @@
+.table {
+    min-height: 300px;
+    margin-left: 40px;
+}
+
+.couples {
+    display: flex;
+    justify-content: center; 
+}

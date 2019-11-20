@@ -79,6 +79,10 @@ export default class Logic {
             }
         }
 
+        if (enemyStatus === 'defeated') {
+            return { card: false, status: 'defeated' };
+        }
+
     }
 
     _getMinRankedCard = (cards) => {
