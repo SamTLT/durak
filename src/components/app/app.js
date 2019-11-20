@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import Table from '../table';
 import Deck from '../deck';
 import Cards from '../cards';
+import Button from '../button';
 
 import * as actions from '../../actions';
 import styles from './app.module.css';
@@ -27,11 +28,22 @@ const App = ({ cards, trump, enemyCards, setInitials, winner }) => {
   return (
     <div className={styles['app']}>
       <Cards cards={enemyCards} type="enemy" />
-      <div style={{ display: 'flex', justifyContent: 'start', alignItems: 'center' }}>
-        <Deck card={trump} />
-        <Table />
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ flexGrow: 1, marginLeft: '10px' }}>
+          <Deck card={trump} />
+        </div>
+        <div style={{ flexGrow: 10000, marginLeft: '20px' }}>
+          <Table />
+        </div>
+
       </div>
-      <Cards cards={cards} type="player" />
+      <div className={styles['user-field']}>
+        <Cards cards={cards} type="player" />
+      </div>
+      <div className={styles['btn-action']}>
+        <Button />
+      </div>
+
 
     </div >
   );

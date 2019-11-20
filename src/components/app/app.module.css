@@ -1,4 +1,15 @@
 .app {
     max-width: 900px;
     margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.btn-action {
+    display: flex;
+    justify-content: center;
+}
+
+.user-field {
+    /* display: flex;
+    justify-content: center; */
 }

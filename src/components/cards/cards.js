@@ -8,10 +8,24 @@ const lowToHigh = (a, b) => {
     return a.rank - b.rank;
 }
 
-const zIndex = (index) => {
+const setStyle = (index, cards) => {
+
     return {
-        zIndex: index
+        zIndex: index,
+        marginLeft: calcMargin(cards)
     }
+}
+
+const calcMargin = (cards) => {
+
+    const base = 324;
+    const cardWidth = 108;
+    let margin = -54;
+    if (cards.length > 6) {
+        margin = -Math.floor(cardWidth - base / cards.length);
+    }
+    return `${margin}px`;
+
 }
 
 const Cards = (props) => {
@@ -19,7 +33,7 @@ const Cards = (props) => {
     const cardsArr = props.cards.sort(lowToHigh).map((card, i) => {
         return <li key={card.key}
             className={styles['card']}
-            style={zIndex(i)}>
+            style={setStyle(i, props.cards)}>
             <Card card={card} type={props.type} />
         </li>
     })

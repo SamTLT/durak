@@ -5,17 +5,26 @@ import { bindActionCreators } from 'redux';
 import styles from './button.module.css';
 import * as actions from '../../actions';
 
-const Button = ({ status, title, endTurn, tableToBeat }) => {
+const Button = ({ status, endTurn, toBeat }) => {
 
-    let btn = <button className={styles['card']} onClick={() => endTurn(status)}>{title}</button>
+    let label = 'End Turn';
+    if (status === 'defense') {
+        label = 'Take';
+    }
 
-    return tableToBeat.length !== 0 ? btn : null;
+    let btn = <button
+        className={styles['button']}
+        onClick={() => endTurn(status)}>
+        {label}
+    </button>
+
+    return toBeat !== 0 ? btn : null;
 }
 
 const mapStateToPros = state => {
     return {
         status: state.status,
-        tableToBeat: state.tableToBeat
+        toBeat: state.tableToBeat.length
     }
 }
 

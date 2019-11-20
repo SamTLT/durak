@@ -1,33 +1,6 @@
-.card {
-    cursor: pointer;
-    height: 150px;
-    width: 100px;
-    margin-left: 4px;
-    margin-right: 4px;
-
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.card-unavailable {
-    /* color: red;
-    border: solid 1px red; */
-    /* border-radius: 7px; */
-    -webkit-filter: brightness(80%);
-}
-
-.turn {
-    
-}
-
-.trump {
-    
-}
-
 .deck-full {
     position: relative;
+    margin: 0 20px;
 }
 
 .deck-closed {
@@ -35,5 +8,19 @@
     position: absolute;
     top:-25px;
     left: 0;
-    z-index: 999;
+    z-index: 1;
+}
+
+.cards-left {
+    position: absolute;
+    top: 20px;
+    left: 23px;
+    z-index: 2;
+    font-size: 50px;
+    background: white;
+    border: solid 1px red;
+    border-radius: 10px;
+    padding: 0 5px;
+    min-width: 51px;
+    text-align: center;
 }

@@ -192,7 +192,9 @@ export const sendCardOnServer = (card) => (dispatch, getState) => {
 
     dispatch(setCardsToUse(whatCanUse.cardsToUse));
 
-    if (status === 'attack' && tableToBeat.length <= 6 && enemyCards.length !== 0) {
+    if (status === 'attack' &&
+        tableToBeat.length <= 6 &&
+        enemyCards.length !== 0) {
         setTimeout(() => {
             const response = logic.enemyAction(enemyCards, tableToBeat, tableBeated, status, enemyStatus);
 
@@ -203,12 +205,22 @@ export const sendCardOnServer = (card) => (dispatch, getState) => {
                 const whatCanUse2 = logic.cardsToUse(getState().tableToBeat, getState().tableBeated, getState().cards, getState().status);
 
                 dispatch(setCardsToUse(whatCanUse2.cardsToUse));
+
+                if (getState().enemyCards.length === 0) {
+                    dispatch(setCardsToUse([]));
+                }
+
             } else {
 
                 const whatCanUse2 = logic.cardsToUse(getState().tableToBeat, getState().tableBeated, getState().cards, getState().status);
                 dispatch(setCardsToUse(whatCanUse2.cardsToUse));
 
                 dispatch(setEnemyStatus(response.status));
+
+                if ((getState().tableToBeat.length - getState().tableBeated.length) >= getState().enemyCards.length) {
+                    dispatch(setCardsToUse([]));
+                }
+
             }
 
             dispatch(checkWinner('Enemy', enemyCards));
@@ -216,6 +228,7 @@ export const sendCardOnServer = (card) => (dispatch, getState) => {
         }, 0);
     } else {
         dispatch(setCardsToUse([]));
+        // dispatch(checkWinner('Enemy', enemyCards));
     }
 
     if (status === 'defense' && tableToBeat.length <= 6 && cards.length !== 0) {

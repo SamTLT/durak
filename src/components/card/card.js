@@ -67,8 +67,7 @@ const selectOnClick = (status, func1, func2) => {
 
 const Card = ({ card, putCardOnTable, beatCardOnTable, cardsToUse, status, type }) => {
 
-    console.log(type);
-    let onClick = (type) => console.log(type);
+    let onClick = (type) => null;
     let isAvailable = true;
     let pointer = true;
 
