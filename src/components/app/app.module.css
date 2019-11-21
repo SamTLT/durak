@@ -1,5 +1,6 @@
 .app {
     max-width: 900px;
+    min-height: 300px;
     margin: 0 auto;
     box-sizing: border-box;
 }
@@ -15,31 +16,41 @@
     /* give it dimensions */
     /* min-height: 10em; */
     width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
 }
 
 .mid-table {
     position: fixed;
     top: 50%;
     margin-top: -88px;
+    right: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto; 
+
+    width: 100%;
+
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
     align-items: center;
+
 }
 
 .deck {
-    flex-grow: 1;
     margin-left: 10px;
 }
 
 .table {
-    flex-grow: 10000;
     margin-left: 20px;
 }
 
 .user-field {
     position: fixed;
     /* center the element */
-    bottom: 0px;
+    bottom: 0;
     right: 0;
     left: 0;
     margin-right: auto;
@@ -48,3 +59,82 @@
     /* min-height: 10em; */
     width: 100%;
 }
+
+.btn-action {
+    margin-top: 10px;
+}
+
+.deck-full {
+    margin-left: 20px;
+}
+
+@media only screen and (min-width: 992px) {
+
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) { 
+
+}
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+    ul {
+        transform: scale(0.8, 0.8);
+    }
+
+    .enemy {
+        margin-top: -15px;
+    }
+
+    .mid-table {
+        transform: scale(0.8, 0.8);
+    }
+
+    .table {
+        /* transform: scale(0.8, 0.8); */
+    }
+
+    .deck-full {
+        margin-left: -160px;
+    }
+
+    .deck {
+        transform: rotate(-90deg);
+    }
+
+    .user-cards {
+        margin-bottom: -15px;
+    }
+
+    .btn-action {
+        
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 479px) { 
+    /* ul {
+        transform: scale(0.8, 0.8);
+    }
+
+    .enemy {
+        margin-top: -15px;
+    }
+
+    .mid-table {
+        transform: scale(0.8, 0.8);
+    }
+
+    .table {
+       
+    }
+
+    .deck {
+        transform: scale(0.8, 0.8);
+    }
+
+    .user-cards {
+        margin-bottom: -15px;
+    } */
+}
+
+
+

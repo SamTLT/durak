@@ -27,10 +27,6 @@ const Deck = ({ trump, cardsLeft }) => {
                     {cardsLeft > 0 ? <Card card={trump} type="trump" /> : null}
                     {cardsLeft === 0 ? <Card card={trump} type={trump.type} /> : null}
                 </div>
-                <div className={styles['btn-action']}>
-                    <Button />
-                </div>
-
                 {cardsLeft > 1 ? cardsLeftToShow(cardsLeft) : null}
 
             </div>
