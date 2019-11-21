@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Card from '../card';
+import Button from '../button';
 
 import styles from './deck.module.css';
 // import * as actions from '../../action';
@@ -25,8 +26,11 @@ const Deck = ({ trump, cardsLeft }) => {
                 <div className={styles['trump']}>
                     {cardsLeft > 0 ? <Card card={trump} type="trump" /> : null}
                     {cardsLeft === 0 ? <Card card={trump} type={trump.type} /> : null}
-
                 </div>
+                <div className={styles['btn-action']}>
+                    <Button />
+                </div>
+
                 {cardsLeft > 1 ? cardsLeftToShow(cardsLeft) : null}
 
             </div>

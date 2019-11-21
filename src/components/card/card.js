@@ -9,6 +9,7 @@ const CardToShow = ({ onClick, card, pointer, isAvailable, type }) => {
 
     return <div className={`${styles['card']} 
                             ${pointer ? styles['pointer'] : null} 
+                            ${type === 'player' ? styles['card-pop'] : null} 
                             ${isAvailable ? null : styles['card-unavailable']}`}
         onClick={isAvailable ? () => onClick(card) : null}
         style={setBackground(card, type)}>
@@ -46,7 +47,7 @@ const setBackground = (card, type) => {
 
         return {
             background: `url('/img/cards/${adrr}.svg')`,
-            backgroundSize: "100% 100%"
+            backgroundSize: "100% 100%",
         }
     } else {
         return {};

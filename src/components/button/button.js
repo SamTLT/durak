@@ -12,13 +12,21 @@ const Button = ({ status, endTurn, toBeat }) => {
         label = 'Take';
     }
 
-    let btn = <button
-        className={styles['button']}
-        onClick={() => endTurn(status)}>
-        {label}
-    </button>
+    let onClick = () => endTurn(status);
+    let inactive = null;
+    if (toBeat === 0) {
+        inactive = styles['button-inactive'];
+        onClick = null;
+        label = 'Your Turn';
+    }
 
-    return toBeat !== 0 ? btn : null;
+    return (
+        <button
+            className={`${styles['button']} ${inactive}`}
+            onClick={onClick}>
+            {label}
+        </button>
+    )
 }
 
 const mapStateToPros = state => {

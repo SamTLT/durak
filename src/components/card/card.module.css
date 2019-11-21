@@ -8,6 +8,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition-duration: 0.2s;
+}
+
+.card-pop:hover {
+    margin-top: -50px;
 }
 
 .pointer {
@@ -18,6 +23,15 @@
     /* color: red;
     border: solid 1px red; */
     /* border-radius: 7px; */
+    filter: brightness(80%);
     -webkit-filter: brightness(80%);
     cursor: inherit;
+}
+
+.card-unavailable:hover {
+    margin-top: 0;
+}
+
+.card-unavailable:hover {
+    /* margin-top: 0 !important; */
 }

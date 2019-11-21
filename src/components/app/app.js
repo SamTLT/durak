@@ -27,22 +27,25 @@ const App = ({ cards, trump, enemyCards, setInitials, winner }) => {
 
   return (
     <div className={styles['app']}>
-      <Cards cards={enemyCards} type="enemy" />
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div style={{ flexGrow: 1, marginLeft: '10px' }}>
+      <div className={styles['enemy']}>
+        <Cards cards={enemyCards} type="enemy" />
+      </div>
+      <div className={styles['mid-table']} >
+        <div className={styles['deck']}>
           <Deck card={trump} />
         </div>
-        <div style={{ flexGrow: 10000, marginLeft: '20px' }}>
+        <div className={styles['table']}>
           <Table />
         </div>
 
       </div>
       <div className={styles['user-field']}>
-        <Cards cards={cards} type="player" />
+
+        <div className={styles['user-cards']}>
+          <Cards cards={cards} type="player" />
+        </div>
       </div>
-      <div className={styles['btn-action']}>
-        <Button />
-      </div>
+
 
 
     </div >

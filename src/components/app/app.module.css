@@ -4,12 +4,47 @@
     box-sizing: border-box;
 }
 
-.btn-action {
+.enemy {
+    position: fixed;
+    /* center the element */
+    top: 0;
+    right: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto;
+    /* give it dimensions */
+    /* min-height: 10em; */
+    width: 100%;
+}
+
+.mid-table {
+    position: fixed;
+    top: 50%;
+    margin-top: -88px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.deck {
+    flex-grow: 1;
+    margin-left: 10px;
+}
+
+.table {
+    flex-grow: 10000;
+    margin-left: 20px;
 }
 
 .user-field {
-    /* display: flex;
-    justify-content: center; */
+    position: fixed;
+    /* center the element */
+    bottom: 0px;
+    right: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto;
+    /* give it dimensions */
+    /* min-height: 10em; */
+    width: 100%;
 }

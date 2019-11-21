@@ -24,3 +24,9 @@
     min-width: 51px;
     text-align: center;
 }
+
+.btn-action {
+    margin-top: 15px;
+    margin-left: -20px;
+    min-width: 142px;
+}
