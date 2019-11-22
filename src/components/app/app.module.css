@@ -1,6 +1,6 @@
 .app {
     max-width: 900px;
-    min-height: 300px;
+    min-height: 480px;
     margin: 0 auto;
     box-sizing: border-box;
 }
@@ -19,7 +19,7 @@
 
     display: flex;
     justify-content: center;
-    align-items: baseline;
+    align-items: center;
 }
 
 .mid-table {
@@ -34,17 +34,20 @@
     width: 100%;
 
     display: flex;
-    justify-content: start;
-    align-items: center;
+    justify-content: space-around;
+    align-items: start;
 
 }
 
 .deck {
-    margin-left: 10px;
+    position: absolute;
+    top: 50%;
+    margin-top: -88px;
+    right: -30px;
 }
 
 .table {
-    margin-left: 20px;
+    
 }
 
 .user-field {
@@ -61,79 +64,115 @@
 }
 
 .btn-action {
-    margin-top: 10px;
-}
-
-.deck-full {
-    margin-left: 20px;
-}
-
-@media only screen and (min-width: 992px) {
-
+    position: absolute;
+    bottom: 16px;
+    right: calc(50% - 350px);
+    min-width: 142px;
+    width: 142px;
+    z-index: 1000;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) { 
 
-}
-
-@media only screen and (min-width: 480px) and (max-width: 767px) {
-    ul {
-        transform: scale(0.8, 0.8);
-    }
-
-    .enemy {
-        margin-top: -15px;
-    }
-
-    .mid-table {
-        transform: scale(0.8, 0.8);
-    }
-
-    .table {
-        /* transform: scale(0.8, 0.8); */
-    }
-
-    .deck-full {
-        margin-left: -160px;
+    .deck, ul, .mid-table {
+        transform: scale(0.9);
     }
 
     .deck {
-        transform: rotate(-90deg);
+        right: -70px;
+    }
+
+    .table {
+        margin-left: -76px;
+    }
+
+    .enemy {
+        margin-top: -10px;
     }
 
     .user-cards {
-        margin-bottom: -15px;
+        margin-bottom: -10px;
+    }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+
+    .deck, ul, .mid-table {
+        transform: scale(0.7);
+    }
+
+    .deck {
+        right: -70px;
+    }
+
+    .mid-table {
+        margin-top: -163px;
+    }
+
+    .enemy {
+        margin-top: -25px;
+    }
+
+    .user-cards {
+        margin-bottom: -25px;
     }
 
     .btn-action {
-        
+        right: calc(50% - 232px);
+        min-width: 92px;
+        width: 92px;
+        height: 64px;
     }
 }
 
 @media only screen and (min-width: 320px) and (max-width: 479px) { 
-    /* ul {
-        transform: scale(0.8, 0.8);
-    }
 
-    .enemy {
-        margin-top: -15px;
-    }
-
-    .mid-table {
-        transform: scale(0.8, 0.8);
-    }
-
-    .table {
-       
+    .deck, ul, .mid-table, .btn-action {
+        transform: scale(0.7);
     }
 
     .deck {
-        transform: scale(0.8, 0.8);
+        right: -70px;
+    }
+
+    .mid-table {
+        margin-top: -270px;
+    }
+
+    .enemy {
+        margin-top: -75px;
     }
 
     .user-cards {
-        margin-bottom: -15px;
-    } */
+        margin-bottom: -75px;
+    }
+
+    .btn-action {
+        right: 8px;
+        top: -27px;
+        min-width: 92px;
+        width: 92px;
+        height: 64px;
+    }
+
+    .user-field, .enemy {
+        right: -20px;
+    }
+}
+
+@media only screen and (orientation: landscape) {
+    .enemy {
+        margin-top: -75px;
+    }
+
+    .user-cards {
+        margin-bottom: -75px;
+    }
+
+    .mid-table {
+        transform: scale(0.7, 0.7);
+        margin-top: -120px;
+    }
 }
 
 

@@ -16,15 +16,15 @@ const Table = ({ tableToBeat, tableBeated }) => {
     });
 
     const toShow = toBeat.map((cardToBeat, i) => {
-        return <div className='couple' key={cardToBeat.key}>{cardToBeat} {beated[i] ? beated[i] : null}</div>
+        return <div className={styles['couple']} key={cardToBeat.key}>{cardToBeat} {beated[i] ? beated[i] : null}</div>
     })
 
-    return (<div className={styles['table']}>
-
-        <div className={styles['couples']}>
-            {toShow}
-        </div>
-    </div >
+    return (
+        <div className={styles['table']}>
+            <div className={styles['couples']}>
+                {toShow}
+            </div>
+        </div >
     )
 }
 

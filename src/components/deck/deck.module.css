@@ -1,32 +1,35 @@
 .deck-full {
     position: relative;
-    margin: 0 20px;
 }
 
 .deck-closed {
-    transform: rotate(90deg);
-    position: absolute;
-    top:-25px;
-    left: 0;
+    position: relative;
     z-index: 1;
 }
 
-.cards-left {
+.trump {
+    transform: rotate(90deg);
     position: absolute;
-    top: 20px;
-    left: 23px;
+    top: 0px;
+    left: -25px;
+    z-index: 0;
+}
+
+.cards-left {
+    transform: rotate(-90deg);
+    position: absolute;
+    bottom: 3px;
+    left: 0;
     z-index: 2;
-    font-size: 50px;
+    font-size: 15px;
     background: white;
-    border: solid 1px red;
-    border-radius: 10px;
-    padding: 0 5px;
-    min-width: 51px;
+    border: solid 1px black;
+    border-radius: 5px;
+    padding: 0 2px;
+    min-width: 20px;
     text-align: center;
 }
 
-.btn-action {
-    margin-top: 15px;
-    margin-left: -20px;
-    min-width: 142px;
+.hidden {
+    visibility: hidden;
 }

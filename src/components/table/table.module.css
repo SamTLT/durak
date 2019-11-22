@@ -1,26 +1,20 @@
 .table {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-
-    min-height: 176px;
+    min-height: 342px;
 }
 
 .couples {
     display: flex;
-    /* position: relative; */
     justify-content: center; 
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.couple {
+    padding-bottom: 15px;
 }
 
 .card-beated {
-    /* position: absolute; */
-    /* top: 0;
-    left: 0; */
     margin-top: -125px;
     margin-left: 10px;
 }
 
-.card-to-beat {
-    /* display: flex;
-    justify-content: center;  */
-}
