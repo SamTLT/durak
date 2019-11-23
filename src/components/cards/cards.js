@@ -1,48 +1,60 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import styles from './cards.module.css';
 
 import Card from '../card';
 
-const lowToHigh = (a, b) => {
-    return a.rank - b.rank;
-}
+const Cards = ({ cards, cardSize, type }) => {
 
-const setStyle = (index, cards) => {
-
-    return {
-        zIndex: index,
-        marginLeft: calcMargin(cards)
+    const lowToHigh = (a, b) => {
+        return a.rank - b.rank;
     }
-}
 
-const calcMargin = (cards) => {
-
-    const base = 324;
-    const cardWidth = 108;
-    let margin = -54;
-    if (cards.length > 6) {
-        margin = -Math.floor(cardWidth - base / cards.length);
+    const setStyle = (index, cards, width) => {
+        return {
+            zIndex: index,
+            marginLeft: calcMargin(index, cards, width)
+        }
     }
-    return `${margin}px`;
 
-}
+    const calcMargin = (index, cards, width) => {
 
-const Cards = (props) => {
+        if (index === 0) {
+            return `0px`;
+        }
 
-    const cardsArr = props.cards.sort(lowToHigh).map((card, i) => {
+        let margin = -20;
+        let base = (width / 100) * 450;
+        if (cards.length > 6) {
+            // margin = Math.floor(((base + Math.round(width / 20 * cards.length)) - cards.length * width) / ((cards.length - 1)));
+            // margin = Math.floor((base - cards.length * width) / ((cards.length - 1))) + Math.round(cards.length / 8);
+            margin = Math.floor((base - cards.length * width) / ((cards.length - 1)));
+        }
+        console.log(margin);
+        return `${margin}px`;
+
+    }
+
+    const cardsArr = cards.sort(lowToHigh).map((card, i) => {
         return <li key={card.key}
             className={styles['card']}
-            style={setStyle(i, props.cards)}>
-            <Card card={card} type={props.type} />
+            style={setStyle(i, cards, cardSize.width)}>
+            <Card card={card} type={type} />
         </li>
     })
 
     return (
-        <ul className={styles['cards']}>
+        <ul className={styles['cards']} >
             {cardsArr}
         </ul>
     )
 }
 
-export default Cards;
+const mapStateToPros = state => {
+    return {
+        cardSize: state.cardSize
+    }
+}
+
+export default connect(mapStateToPros)(Cards);

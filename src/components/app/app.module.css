@@ -1,81 +1,43 @@
 .app {
-    max-width: 900px;
-    min-height: 480px;
+    width: 720px;
+    min-height: 550px;
     margin: 0 auto;
     box-sizing: border-box;
 }
 
-.enemy {
-    position: fixed;
-    /* center the element */
-    top: 0;
-    right: 0;
-    left: 0;
-    margin-right: auto;
-    margin-left: auto;
-    /* give it dimensions */
-    /* min-height: 10em; */
-    width: 100%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.mid-table {
-    position: fixed;
-    top: 50%;
-    margin-top: -88px;
-    right: 0;
-    left: 0;
-    margin-right: auto;
-    margin-left: auto; 
-
-    width: 100%;
-
-    display: flex;
-    justify-content: space-around;
-    align-items: start;
-
-}
-
 .deck {
-    position: absolute;
+    position: fixed;
     top: 50%;
-    margin-top: -88px;
+    margin-top: -75px;
     right: -30px;
 }
 
-.table {
-    
-}
-
-.user-field {
+.user-cards {
     position: fixed;
-    /* center the element */
     bottom: 0;
-    right: 0;
     left: 0;
     margin-right: auto;
     margin-left: auto;
-    /* give it dimensions */
-    /* min-height: 10em; */
     width: 100%;
 }
 
 .btn-action {
-    position: absolute;
+    position: fixed;
     bottom: 16px;
-    right: calc(50% - 350px);
+    right: calc(50% - 430px);
     min-width: 142px;
     width: 142px;
     z-index: 1000;
 }
 
+@media only screen and (min-width: 992px) { 
+    
+}
+
 @media only screen and (min-width: 768px) and (max-width: 991px) { 
 
-    .deck, ul, .mid-table {
-        transform: scale(0.9);
+    .app {
+        width: 660px;
     }
 
     .deck {
@@ -83,7 +45,36 @@
     }
 
     .table {
-        margin-left: -76px;
+        margin-left: -30px;
+    }
+
+    .enemy {
+        margin-top: -10px;
+        /* margin-left: -30px; */
+    }
+
+    .user-cards {
+        margin-bottom: -20px;
+        /* margin-left: -30px; */
+    }
+
+    .btn-action {
+        right: calc(50% - 374px);
+    }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+
+    .app {
+        width: 300px;
+    }
+
+    .deck {
+        right: -70px;
+    }
+
+    .table {
+        margin-top: -40px;
     }
 
     .enemy {
@@ -91,82 +82,86 @@
     }
 
     .user-cards {
-        margin-bottom: -10px;
-    }
-}
-
-@media only screen and (min-width: 480px) and (max-width: 767px) {
-
-    .deck, ul, .mid-table {
-        transform: scale(0.7);
-    }
-
-    .deck {
-        right: -70px;
-    }
-
-    .mid-table {
-        margin-top: -163px;
-    }
-
-    .enemy {
-        margin-top: -25px;
-    }
-
-    .user-cards {
-        margin-bottom: -25px;
+        margin-bottom: -30px;
+        /* margin-left: -40px; */
     }
 
     .btn-action {
-        right: calc(50% - 232px);
+        transform: scale(0.8);
+        top: calc(50% + 70px);
+        right: 0;
+        height: 65px;
         min-width: 92px;
-        width: 92px;
-        height: 64px;
+        width: 66px;
     }
 }
 
-@media only screen and (min-width: 320px) and (max-width: 479px) { 
+@media only screen and (min-width: 200px) and (max-width: 479px) { 
 
-    .deck, ul, .mid-table, .btn-action {
-        transform: scale(0.7);
+    .app {
+        width: 180px;
     }
+
+    /* .deck, ul, .mid-table, .btn-action {
+        transform: scale(0.7);
+    } */
 
     .deck {
-        right: -70px;
+        right: -50px;
     }
 
-    .mid-table {
-        margin-top: -270px;
+    .table {
+        margin-top: -40px;
     }
 
     .enemy {
         margin-top: -75px;
+        /* margin-left: -20px; */
     }
 
     .user-cards {
         margin-bottom: -75px;
+        /* margin-left: -40px; */
     }
 
     .btn-action {
-        right: 8px;
-        top: -27px;
+        transform: scale(0.7);
+        top: calc(50% + 100px);
+        right: -5px;
+        height: 65px;
         min-width: 92px;
-        width: 92px;
-        height: 64px;
+        width: 66px;
     }
 
-    .user-field, .enemy {
-        right: -20px;
-    }
 }
 
-@media only screen and (orientation: landscape) {
+/* @media only screen and (max-height: 600px) and (min-width: 320px) and (max-width: 479px) {
+
+    .mid-table {
+        margin-top: -240px;
+    }
+
     .enemy {
-        margin-top: -75px;
+        margin-top: -100px;
     }
 
     .user-cards {
-        margin-bottom: -75px;
+        margin-bottom: -100px;
+    }
+} */
+
+@media only screen and (orientation: landscape) and (max-height: 480px){
+
+    .app {
+        width: 300px;
+    }
+
+    .enemy {
+        margin-top: -115px;
+    }
+
+    .user-cards {
+        margin-bottom: -115px;
     }
 
     .mid-table {

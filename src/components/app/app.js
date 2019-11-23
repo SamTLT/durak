@@ -14,12 +14,17 @@ import styles from './app.module.css';
 
 const deckData = new DeckServise();
 
-const App = ({ cards, trump, enemyCards, setInitials, winner }) => {
+const App = ({ cards, trump, enemyCards, setInitials, winner, setCardSize }) => {
 
   useEffect(() => {
-    setInitials(deckData);
+    setInitials(deckData, window.innerWidth);
     console.log('setting initials');
   }, [setInitials]);
+
+  // checking window width
+  window.addEventListener("resize", function () {
+    setCardSize(window.innerWidth);
+  });
 
   if (winner) {
     return <h1>{winner} win!</h1>
@@ -30,10 +35,8 @@ const App = ({ cards, trump, enemyCards, setInitials, winner }) => {
       <div className={styles['enemy']}>
         <Cards cards={enemyCards} type="enemy" />
       </div>
-      <div className={styles['mid-table']} >
-        <div className={styles['table']}>
-          <Table />
-        </div>
+      <div className={styles['table']}>
+        <Table />
       </div>
       <div className={styles['deck']}>
         <Deck card={trump} />
@@ -42,11 +45,11 @@ const App = ({ cards, trump, enemyCards, setInitials, winner }) => {
 
         <div className={styles['user-cards']}>
           <Cards cards={cards} type="player" />
-          <div className={styles['btn-action']}>
-            <Button />
-          </div>
         </div>
 
+      </div>
+      <div className={styles['btn-action']}>
+        <Button />
       </div>
 
 
@@ -66,12 +69,15 @@ const mapStateToPros = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-  const { setInitials } = bindActionCreators(actions, dispatch);
+  const { setInitials, processCardSize } = bindActionCreators(actions, dispatch);
 
   return {
-    setInitials: (deck) => {
-      setInitials(deck);
+    setInitials: (deck, width) => {
+      setInitials(deck, width);
     },
+    setCardSize: (width) => {
+      processCardSize(width);
+    }
   }
 }
 

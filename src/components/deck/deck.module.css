@@ -19,7 +19,7 @@
     transform: rotate(-90deg);
     position: absolute;
     bottom: 3px;
-    left: 0;
+    left: -3px;
     z-index: 2;
     font-size: 15px;
     background: white;

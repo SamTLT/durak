@@ -8,7 +8,11 @@ const initialState = {
     status: 'attack',
     enemyStatus: 'defense',
     cardsToUse: [],
-    winner: null
+    winner: null,
+    cardSize: {
+        width: 100,
+        height: 150
+    }
 };
 
 const reducer = (state = initialState, action) => {
@@ -18,6 +22,13 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 winner: action.payload
             };
+
+        case 'SET_CARD_SIZE':
+            return {
+                ...state,
+                cardSize: action.payload
+            };
+
 
         case 'SET_CARDS':
             return {

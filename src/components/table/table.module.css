@@ -4,17 +4,25 @@
 
 .couples {
     display: flex;
-    justify-content: center; 
-    align-items: flex-start;
+    justify-content: start;
+    align-items: start;
     flex-wrap: wrap;
 }
 
 .couple {
-    padding-bottom: 15px;
+    position: relative;
+    padding-bottom: 20px;
+
+}
+
+.card-to-beat {
+    margin-right: 20px;
+    
 }
 
 .card-beated {
-    margin-top: -125px;
-    margin-left: 10px;
+    position: absolute;
+    top: 10%;
+    left: 10%;
 }
 

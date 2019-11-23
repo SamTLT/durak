@@ -18,6 +18,8 @@ export const cleanTable = () => ({ type: 'CLEAN_TABLE' });
 
 export const setWinner = (payload) => ({ type: 'SET_WINNER', payload });
 
+export const setCardSize = (payload) => ({ type: 'SET_CARD_SIZE', payload });
+
 export const putCardOnTable = (payload) => {
     return {
         type: 'PUT_CARD_ON_TABLE',
@@ -33,12 +35,49 @@ export const beatCardOnTable = (payload) => {
     }
 };
 
-export const setInitials = (deck) => (dispatch, getState) => {
+export const setInitials = (deck, width) => (dispatch, getState) => {
     dispatch(setCards(deck.myCards));
     dispatch(setDeck(deck.deck));
     dispatch(setEnemyCards(deck._enemyCards));
     dispatch(setTrump(deck.getTrump()));
     dispatch(setCardsToUse(deck.myCards));
+    dispatch(processCardSize(width));
+
+}
+
+export const processCardSize = (width) => (dispatch, getState) => {
+
+    let size = {
+        height: 150,
+        width: 100
+    }
+
+    if (width >= 992) {
+        size.height = 150;
+        size.width = 100;
+    }
+
+
+    if (768 <= width && width <= 991) {
+        size.height = Math.round(size.height * 0.9);
+        size.width = Math.round(size.width * 0.9);
+    }
+
+    if (480 <= width && width <= 767) {
+        size.height = Math.round(size.height * 0.8);
+        size.width = Math.round(size.width * 0.8);
+    }
+
+    if (320 <= width && width <= 479) {
+        size.height = Math.round(size.height * 0.7);
+        size.width = Math.round(size.width * 0.7);
+    }
+
+    if (getState().cardSize.height !== size.height) {
+        dispatch(setCardSize(size));
+    }
+
+
 }
 
 export const checkWinner = (user, cards) => (dispatch, getState) => {
