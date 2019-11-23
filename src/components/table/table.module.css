@@ -4,7 +4,7 @@
 
 .couples {
     display: flex;
-    justify-content: start;
+    justify-content: center;
     align-items: start;
     flex-wrap: wrap;
 }

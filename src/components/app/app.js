@@ -41,12 +41,8 @@ const App = ({ cards, trump, enemyCards, setInitials, winner, setCardSize }) => 
       <div className={styles['deck']}>
         <Deck card={trump} />
       </div>
-      <div className={styles['user-field']}>
-
-        <div className={styles['user-cards']}>
-          <Cards cards={cards} type="player" />
-        </div>
-
+      <div className={styles['user-cards']}>
+        <Cards cards={cards} type="player" />
       </div>
       <div className={styles['btn-action']}>
         <Button />
