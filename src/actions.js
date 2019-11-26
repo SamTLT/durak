@@ -27,6 +27,8 @@ export const setWinner = (payload) => ({ type: 'SET_WINNER', payload });
 
 export const setCardSize = (payload) => ({ type: 'SET_CARD_SIZE', payload });
 
+export const setBtnIsActive = (payload) => ({ type: 'SET_BTN_IS_ACTIVE', payload });
+
 export const putCardsOnTable = (payload) => {
     return {
         type: 'PUT_CARDS_ON_TABLE',
@@ -42,7 +44,11 @@ export const beatCardOnTable = (payload) => {
 };
 
 export const setInitials = (width) => (dispatch, getState) => {
+
+    dispatch(setBtnIsActive(false));
+
     server.start().then(res => {
+        dispatch(setWinner(res.winner));
         dispatch(setCards(res.cards));
         dispatch(setEnemyCardsNumber(res.enemyCardsNum));
         dispatch(setTrump(res.trump));
@@ -51,7 +57,6 @@ export const setInitials = (width) => (dispatch, getState) => {
         dispatch(setStatus(res.status));
         dispatch(putCardsOnTable(res.tableToBeat));
         dispatch(beatCardOnTable(res.tableBeated));
-        dispatch(setWinner(res.winner));
     });
     dispatch(processCardSize(width));
 }
@@ -103,8 +108,12 @@ export const checkWinner = (user, cards) => (dispatch, getState) => {
 
 export const endTurn = () => (dispatch, getState) => {
 
+    // блокируем выбор карт после нажатия кнопки завершения хода
+    dispatch(setCardsToUse([]));
+    dispatch(setBtnIsActive(false));
+
     server.endTurn(getState().status).then(res => {
-        console.log(res);
+        dispatch(setWinner(res.winner));
         dispatch(setCards(res.cards));
         dispatch(setEnemyCardsNumber(res.enemyCardsNum));
         dispatch(setCardsToUse(res.cardsToUse));
@@ -112,24 +121,11 @@ export const endTurn = () => (dispatch, getState) => {
         dispatch(beatCardOnTable(res.tableBeated));
         dispatch(setStatus(res.userStatus));
         dispatch(setCardsLeftInDeck(res.cardsLeft));
-        dispatch(setWinner(res.winner));
+
+        dispatch(setBtnIsActive(true));
+
     });
 
-}
-
-export const removeEnemyCard = (cardToRemove) => (dispatch, getState) => {
-
-    const { enemyCards } = getState();
-    const key = cardToRemove.key;
-    const idx = enemyCards.findIndex(item => item.key === key);
-
-    if (idx === -1) {
-        return;
-    }
-
-    const newCards = [...enemyCards.slice(0, idx), ...enemyCards.slice(idx + 1)];
-
-    dispatch(setEnemyCards(newCards));
 }
 
 export const removeCard = (cardToRemove) => (dispatch, getState) => {
@@ -158,8 +154,13 @@ export const sendCardOnServer = (card) => (dispatch, getState) => {
         dispatch(beatCardOnTable([...getState().tableBeated, card]));
     }
 
+    // блокируем выбор карт после отправки карты
+    dispatch(setCardsToUse([]));
+
+    dispatch(setBtnIsActive(false));
+
     server.sendCard(card).then(res => {
-        console.log(res);
+        dispatch(setWinner(res.winner));
         dispatch(setCards(res.cards));
         dispatch(setEnemyCardsNumber(res.enemyCardsNum));
         dispatch(setCardsToUse(res.cardsToUse));
@@ -167,34 +168,9 @@ export const sendCardOnServer = (card) => (dispatch, getState) => {
         dispatch(beatCardOnTable(res.tableBeated));
         dispatch(setStatus(res.userStatus));
         dispatch(setCardsLeftInDeck(res.cardsLeft));
-        dispatch(setWinner(res.winner));
+
+        dispatch(setBtnIsActive(true));
     });
-}
-
-export const receiveCardFromServer = () => (dispatch, getState) => {
-
-    const logic = new Logic();
-
-    const { enemyCards, enemyStatus, tableToBeat, tableBeated, status } = getState();
-
-    if (status === 'defense') {
-        setTimeout(() => {
-            const response = logic.enemyAction(enemyCards, tableToBeat, tableBeated, status, enemyStatus);
-
-            if (response.card) {
-                dispatch(putCardsOnTable(response.card));
-                dispatch(removeEnemyCard(response.card));
-
-                const whatCanUse2 = logic.cardsToUse(getState().tableToBeat, [], getState().cards, getState().status);
-
-                dispatch(setCardsToUse(whatCanUse2.cardsToUse));
-            } else {
-                dispatch(setEnemyStatus(response.status));
-            }
-
-        }, 0);
-    }
-
 }
 
 

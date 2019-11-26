@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import styles from './button.module.css';
 import * as actions from '../../actions';
 
-const Button = ({ status, endTurn, toBeat }) => {
+const Button = ({ status, endTurn, toBeat, isActive }) => {
 
     let label = 'End Turn';
     if (status === 'defense') {
@@ -20,6 +20,10 @@ const Button = ({ status, endTurn, toBeat }) => {
         label = 'Your Turn';
     }
 
+    if (!isActive) {
+        onClick = null;
+    }
+
     return (
         <button
             className={`${styles['button']} ${inactive}`}
@@ -32,7 +36,8 @@ const Button = ({ status, endTurn, toBeat }) => {
 const mapStateToPros = state => {
     return {
         status: state.status,
-        toBeat: state.tableToBeat.length
+        toBeat: state.tableToBeat.length,
+        isActive: state.isBtnActive
     }
 }
 

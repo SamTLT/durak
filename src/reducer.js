@@ -6,11 +6,11 @@ const initialState = {
     tableToBeat: [],
     tableBeated: [],
     status: '',
-    enemyStatus: 'defense',
     cardsToUse: [],
     winner: null,
     enemyCardsNum: 0,
     cardsLeftInDeck: 0,
+    isBtnActive: false,
     cardSize: {
         width: 100,
         height: 150
@@ -31,11 +31,16 @@ const reducer = (state = initialState, action) => {
                 cardSize: action.payload
             };
 
-
         case 'SET_CARDS':
             return {
                 ...state,
                 cards: [...action.payload]
+            };
+
+        case 'SET_BTN_IS_ACTIVE':
+            return {
+                ...state,
+                isBtnActive: action.payload
             };
 
         case 'SET_CARDS_LEFT_IN_DECK':

@@ -21,7 +21,7 @@ class Server {
             setTimeout(() => {
                 const initialData = {
                     cards: this._userCards,
-                    trump: deck.getTrump(),
+                    trump: deck.trump,
                     enemyCardsNum: this._enemyCards.length,
                     cardsLeft: deck.cardsLeft(),
                     cardsToUse: logic.cardsToUse([], [], this._userCards, this._userStatus),
@@ -39,8 +39,6 @@ class Server {
     sendCard = (card) => {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                console.log(deck.cardsLeft());
-                console.log(1, this._enemyCards);
                 let whatCanUse = { cardsToUse: [] };
                 if (this._userStatus === 'attack' &&
                     this._tableToBeat.length <= 6 &&
@@ -88,8 +86,6 @@ class Server {
                     this.checkWinner('Enemy', this._enemyCards);
                 }
 
-                console.log(2, this._enemyCards);
-
                 if (this._userStatus === 'defense' &&
                     this._tableToBeat.length <= 6 &&
                     this._enemyCards.length !== 0) {
@@ -102,8 +98,6 @@ class Server {
                     // Противник думает
                     const enemyAction = logic.enemyAction(this._enemyCards, this._tableToBeat, this._tableBeated, this._enemyStatus);
 
-                    console.log('action', enemyAction);
-                    console.log(3, this._enemyCards);
                     // если ему есть чем сходить
                     if (enemyAction.card) {
                         // Удаляем карту из руки
@@ -118,7 +112,6 @@ class Server {
 
                         // проверяем какие карты я могу использовать
                         whatCanUse = logic.cardsToUse(this._tableToBeat, this._tableBeated, this._userCards, this._userStatus);
-                        console.log(4, this._enemyCards);
                     } else {
                         // если врагу нечем сходить
                         // задаем врагу новый статус
@@ -128,14 +121,10 @@ class Server {
                         if (this._tableToBeat.length === this._tableBeated.length) {
                             whatCanUse = { cardsToUse: [] };
                         }
-                        console.log(5, this._enemyCards);
                         // PC finishes it's turn automaticaly if it does not have any cards to throw
                         resolve(this._endTurn(this._userStatus));
                     }
-                    console.log(6, this._enemyCards);
                 }
-
-                console.log(7, this._enemyCards);
 
                 const data = {
                     cards: this._userCards,
@@ -193,13 +182,7 @@ class Server {
 
             if (enemyStatus === 'defeated') {
 
-                console.log(10, this._enemyCards);
-                console.log(11, this._tableToBeat);
-                console.log(12, this._tableBeated);
-
                 this._enemyCards = [...this._enemyCards, ...this._tableToBeat, ...this._tableBeated];
-
-                console.log(13, this._enemyCards);
 
                 whatCanUse = logic.cardsToUse([], [], this._userCards, status);
                 // задаем врагу статус defense т.к. он проиграл предыдущий раунд
@@ -263,10 +246,7 @@ class Server {
                     this.enemyMove();
                     whatCanUse = logic.cardsToUse(this._tableToBeat, this._tableBeated, this._userCards, status);
                 }
-                console.log(this._winner);
             }
-
-            console.log('usercards', this._userCards)
 
             this.checkWinner('Player', this._userCards);
 
@@ -294,7 +274,6 @@ class Server {
         if (this._userStatus === 'defense') {
             // Противник думает
             const enemyAction = logic.enemyAction(this._enemyCards, this._tableToBeat, this._tableBeated, this._enemyStatus);
-            console.log(enemyAction);
 
             if (enemyAction.card) {
                 //Удаляем карту у противника из руки

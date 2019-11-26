@@ -132,17 +132,15 @@ const mapStateToPros = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-    const { putCardOnTable, removeCard, sendCardOnServer, beatCardOnTable } = bindActionCreators(actions, dispatch);
+    const { removeCard, sendCardOnServer } = bindActionCreators(actions, dispatch);
 
     return {
         putCardOnTable: (card) => {
-            // putCardOnTable(card);
             removeCard(card);
             sendCardOnServer(card);
         },
 
         beatCardOnTable: (card) => {
-            // beatCardOnTable(card);
             removeCard(card);
             sendCardOnServer(card);
         }

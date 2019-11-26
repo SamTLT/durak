@@ -37,11 +37,15 @@ export default class Logic {
         if (status === 'defense') {
             const cardToBeat = tableToBeat[tableToBeat.length - 1];
             cards.forEach(card => {
-                if (
-                    (card.rank > cardToBeat.rank && card.type === cardToBeat.type)
-                    || (card.rank > cardToBeat.rank && card.rank > 100)) {
+                if (tableToBeat.length > 0) {
+                    if ((card.rank > cardToBeat.rank && card.type === cardToBeat.type)
+                        || (card.rank > cardToBeat.rank && card.rank > 100)) {
+                        cardsToUse.push(card);
+                    }
+                } else {
                     cardsToUse.push(card);
                 }
+
             })
 
         }
