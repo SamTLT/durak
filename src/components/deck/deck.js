@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Card from '../card';
-import Button from '../button';
 
 import styles from './deck.module.css';
 // import * as actions from '../../action';
