@@ -31,10 +31,9 @@ const EnemyCards = ({ num, cardSize }) => {
 
     }
 
-    const getCards = () => {
+    const getCards = (num) => {
         const cardsArr = [];
-
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < num; i++) {
             const li = <li key={i}
                 className={styles['card']}
                 style={setStyle(i, num, cardSize.width)}>
@@ -48,14 +47,15 @@ const EnemyCards = ({ num, cardSize }) => {
 
     return (
         <ul className={styles['cards']} >
-            {getCards()}
+            {getCards(num)}
         </ul>
     )
 }
 
 const mapStateToPros = state => {
     return {
-        cardSize: state.cardSize
+        cardSize: state.cardSize,
+        num: state.enemyCardsNum,
     }
 }
 

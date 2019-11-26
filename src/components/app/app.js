@@ -12,7 +12,7 @@ import Button from '../button';
 import * as actions from '../../actions';
 import styles from './app.module.css';
 
-const App = ({ cards, trump, enemyCardsNum, setInitials, winner, setCardSize }) => {
+const App = ({ cards, trump, setInitials, winner, setCardSize }) => {
 
   useEffect(() => {
     setInitials(window.innerWidth);
@@ -31,7 +31,7 @@ const App = ({ cards, trump, enemyCardsNum, setInitials, winner, setCardSize }) 
   return (
     <div className={styles['app']}>
       <div className={styles['enemy']}>
-        <EnemyCards num={enemyCardsNum} />
+        <EnemyCards />
       </div>
       <div className={styles['table']}>
         <Table />
@@ -56,7 +56,6 @@ const mapStateToPros = state => {
   return {
     cards: state.cards,
     trump: state.trump,
-    enemyCardsNum: state.enemyCardsNum,
     status: state.status,
     winner: state.winner
   }

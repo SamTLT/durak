@@ -136,13 +136,13 @@ const mapDispatchToProps = dispatch => {
 
     return {
         putCardOnTable: (card) => {
-            putCardOnTable(card);
+            // putCardOnTable(card);
             removeCard(card);
             sendCardOnServer(card);
         },
 
         beatCardOnTable: (card) => {
-            beatCardOnTable(card);
+            // beatCardOnTable(card);
             removeCard(card);
             sendCardOnServer(card);
         }

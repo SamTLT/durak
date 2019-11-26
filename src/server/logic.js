@@ -56,7 +56,7 @@ export default class Logic {
         return deck.get32Deck(deck.minRank, deck.maxRank, deck.types);
     }
 
-    enemyAction = (enemyCards, tableToBeat, tableBeated, myStatus, enemyStatus) => {
+    enemyAction = (enemyCards, tableToBeat, tableBeated, enemyStatus) => {
 
         const toUse = this.cardsToUse(tableToBeat, tableBeated, enemyCards, enemyStatus);
 

@@ -7,8 +7,6 @@ export default class Deck {
         this._initialDeck = this.shuffle(this.get32Deck(this._minRank, this._maxRank, this.types));
         this._trump = this._setTrump();
         this.deck = this.setRanksAccordingTrump([...this._initialDeck], this._trump);
-        this._enemyCards = this.getCards(6);
-        this.myCards = this.getCards(6);
     }
 
     setRanksAccordingTrump = (deck, trump) => {
@@ -88,6 +86,8 @@ export default class Deck {
         return this.deck.length;
     }
 
-
-
+    removeCard = (cardArr, card) => {
+        const idx = cardArr.findIndex(item => item.key === card.key);
+        return idx !== -1 ? [...cardArr.slice(0, idx), ...cardArr.slice(idx + 1)] : cardArr
+    }
 }
