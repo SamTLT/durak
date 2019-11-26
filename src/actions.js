@@ -1,10 +1,17 @@
 import Logic from './server/logic';
+import Server from './server/server';
+
+const server = new Server();
 
 export const setCards = (payload) => ({ type: 'SET_CARDS', payload });
 
 export const setDeck = (payload) => ({ type: 'SET_DECK', payload });
 
+export const setCardsLeftInDeck = (payload) => ({ type: 'SET_CARDS_LEFT_IN_DECK', payload });
+
 export const setEnemyCards = (payload) => ({ type: 'SET_ENEMY_CARDS', payload });
+
+export const setEnemyCardsNumber = (payload) => ({ type: 'SET_ENEMY_CARDS_NUMBER', payload });
 
 export const setStatus = (payload) => ({ type: 'SET_STATUS', payload });
 
@@ -35,14 +42,16 @@ export const beatCardOnTable = (payload) => {
     }
 };
 
-export const setInitials = (deck, width) => (dispatch, getState) => {
-    dispatch(setCards(deck.myCards));
-    dispatch(setDeck(deck.deck));
-    dispatch(setEnemyCards(deck._enemyCards));
-    dispatch(setTrump(deck.getTrump()));
-    dispatch(setCardsToUse(deck.myCards));
+export const setInitials = (width) => (dispatch, getState) => {
+    server.start().then(start => {
+        dispatch(setCards(start.cards));
+        dispatch(setEnemyCardsNumber(start.enemyCardsNum));
+        dispatch(setTrump(start.trump));
+        dispatch(setCardsToUse(start.cardsToUse.cardsToUse));
+        dispatch(setCardsLeftInDeck(start.cardsLeft));
+        console.log(start);
+    });
     dispatch(processCardSize(width));
-
 }
 
 export const processCardSize = (width) => (dispatch, getState) => {

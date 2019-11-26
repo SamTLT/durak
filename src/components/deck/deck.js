@@ -38,7 +38,7 @@ const Deck = ({ trump, cardsLeft }) => {
 const mapStateToPros = state => {
     return {
         trump: state.trump,
-        cardsLeft: state.deck.length
+        cardsLeft: state.cardsLeftInDeck
     }
 }
 

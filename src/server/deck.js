@@ -5,7 +5,7 @@ export default class Deck {
         this._minRank = 6
         this._maxRank = 14;
         this._initialDeck = this.shuffle(this.get32Deck(this._minRank, this._maxRank, this.types));
-        this._trump = this._setTrump(this._initialDeck);
+        this._trump = this._setTrump();
         this.deck = this.setRanksAccordingTrump([...this._initialDeck], this._trump);
         this._enemyCards = this.getCards(6);
         this.myCards = this.getCards(6);
@@ -68,8 +68,8 @@ export default class Deck {
         return array;
     }
 
-    _setTrump = (deck) => {
-        return deck[0];
+    _setTrump = () => {
+        return this._initialDeck[0];
     }
 
     getTrump = () => {

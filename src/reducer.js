@@ -9,6 +9,8 @@ const initialState = {
     enemyStatus: 'defense',
     cardsToUse: [],
     winner: null,
+    enemyCardsNum: 0,
+    cardsLeftInDeck: 0,
     cardSize: {
         width: 100,
         height: 150
@@ -34,6 +36,18 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 cards: action.payload
+            };
+
+        case 'SET_CARDS_LEFT_IN_DECK':
+            return {
+                ...state,
+                cardsLeftInDeck: action.payload
+            };
+
+        case 'SET_ENEMY_CARDS_NUMBER':
+            return {
+                ...state,
+                enemyCardsNum: action.payload
             };
 
         case 'SET_DECK':

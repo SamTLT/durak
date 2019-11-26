@@ -31,7 +31,6 @@ const Cards = ({ cards, cardSize, type }) => {
             // margin = Math.floor((base - cards.length * width) / ((cards.length - 1))) + Math.round(cards.length / 8);
             margin = Math.floor((base - cards.length * width) / ((cards.length - 1)));
         }
-        console.log(margin);
         return `${margin}px`;
 
     }

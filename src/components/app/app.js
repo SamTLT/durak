@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import DeckServise from '../../server/deck';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -7,17 +6,16 @@ import { bindActionCreators } from 'redux';
 import Table from '../table';
 import Deck from '../deck';
 import Cards from '../cards';
+import EnemyCards from '../enemy-cards';
 import Button from '../button';
 
 import * as actions from '../../actions';
 import styles from './app.module.css';
 
-const deckData = new DeckServise();
-
-const App = ({ cards, trump, enemyCards, setInitials, winner, setCardSize }) => {
+const App = ({ cards, trump, enemyCardsNum, setInitials, winner, setCardSize }) => {
 
   useEffect(() => {
-    setInitials(deckData, window.innerWidth);
+    setInitials(window.innerWidth);
     console.log('setting initials');
   }, [setInitials]);
 
@@ -33,7 +31,7 @@ const App = ({ cards, trump, enemyCards, setInitials, winner, setCardSize }) => 
   return (
     <div className={styles['app']}>
       <div className={styles['enemy']}>
-        <Cards cards={enemyCards} type="enemy" />
+        <EnemyCards num={enemyCardsNum} />
       </div>
       <div className={styles['table']}>
         <Table />
@@ -58,7 +56,7 @@ const mapStateToPros = state => {
   return {
     cards: state.cards,
     trump: state.trump,
-    enemyCards: state.enemyCards,
+    enemyCardsNum: state.enemyCardsNum,
     status: state.status,
     winner: state.winner
   }

@@ -1,0 +1,11 @@
+.cards {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    min-height: 150px;
+}
+
+
+.card {
+    position: relative;
+}
