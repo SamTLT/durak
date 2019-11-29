@@ -1,139 +1,158 @@
 .app {
-    width: 720px;
+    width: 80vw;
+    max-width: 80vw;
     min-height: 480px;
     margin: 0 auto;
     box-sizing: border-box;
 }
 
+.enemy {
+    position: fixed;
+    top: 2vh;
+    left: 0;
+    width: 100vw;
+}
+
+.table {
+    position: fixed;
+    top: 36vh;
+    left: 10vw;
+    width: 80vw;
+}
+
 .deck {
     position: fixed;
-    top: 50%;
-    margin-top: -75px;
-    right: -30px;
+    top: 38vh;
+    right: -10vh;
 }
 
 .user-cards {
     position: fixed;
-    bottom: 0;
+    bottom: 2vh;
     left: 0;
-    margin-right: auto;
-    margin-left: auto;
-    width: 100%;
+    width: 100vw;
 }
 
 .btn-action {
     position: fixed;
-    bottom: 16px;
-    right: calc(50% - 430px);
-    min-width: 142px;
-    width: 142px;
+    bottom: 2vh;
+    right: 5vw;
+    min-width: 29vh;
+    width: 29vh;
     z-index: 1000;
 }
 
-@media only screen and (min-width: 992px) { 
+/* @media only screen and (min-width: 992px) { 
+    
+} */
 
+
+/* @media only screen and (min-width: 768px) and (max-width: 991px) { 
+
+} */
+
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+    
     .enemy {
-        margin-top: -70px;
-    }
-
-    .user-cards {
-        margin-bottom: 0;
+        top: -12vh;
     }
     
+    .table {
+        top: 14vh;
+        width: 82vw;
+    }
+    
+    .user-cards {
+        bottom: 2vh;
+    }
+    
+    .btn-action {
+        position: fixed;
+        bottom: 27vh;
+        right: 1vw;
+        min-width: 29vh;
+        width: 29vh;
+        z-index: 1000;
+    }
+
+
 }
 
-@media only screen and (min-width: 768px) and (max-width: 991px) { 
+@media only screen and (min-width: 320px) and (max-width: 479px) { 
 
-    .app {
-        width: 660px;
+    .enemy {
+        top: -12vh;
+    }
+    
+    .table {
+        top: 10vh;
+        width: 82vw;
+    }
+    
+    .user-cards {
+        bottom: 2vh;
     }
 
     .deck {
-        right: -70px;
+        top: 55vh;
+    }
+    
+    .btn-action {
+        position: fixed;
+        bottom: 27vh;
+        right: 50vw;
+        min-width: 29vh;
+        width: 29vh;
+        z-index: 1000;
+    }
+}
+
+@media only screen and (min-width: 200px) and (max-width: 319px) { 
+
+    .enemy {
+        top: -10vh;
+    }
+    
+    .table {
+        top: 10vh;
+        width: 82vw;
     }
 
-    .table {
-        margin-left: -30px;
-        margin-top: -10px;
+    .deck {
+        top: 66vh;
+    }
+    
+    .btn-action {
+        position: fixed;
+        bottom: 20vh;
+        right: 28vw;
+        min-width: 29vh;
+        width: 29vh;
+        z-index: 1000;
+    }
+}
+
+@media only screen and (min-height: 480px) and (max-height: 767px) and (min-width: 200px) and (max-width: 319px) {
+
+    /* .app {
+        width: 660px;
     }
 
     .enemy {
-        margin-top: -10px;
+        margin-top: -90px;
     }
 
     .user-cards {
         margin-bottom: -20px;
     }
 
-    .btn-action {
-        right: calc(50% - 374px);
-    }
-}
-
-@media only screen and (min-width: 480px) and (max-width: 767px) {
-
-    .app {
-        width: 300px;
-    }
-
-    .deck {
-        right: -70px;
-    }
-
     .table {
-        margin-top: -40px;
-    }
-
-    .enemy {
-        margin-top: -70px;
-    }
-
-    .user-cards {
-        margin-bottom: -40px;
-    }
-
-    .btn-action {
-        transform: scale(0.8);
-        top: calc(50% + 50px);
-        right: 0;
-        height: 65px;
-        min-width: 92px;
-        width: 66px;
-    }
+        margin-top: -25px;
+    } */
 }
 
-@media only screen and (min-width: 200px) and (max-width: 479px) { 
-
-    .app {
-        width: 180px;
-    }
-
-    .deck {
-        right: -50px;
-    }
-
-    .table {
-        margin-top: -50px;
-    }
-
-    .enemy {
-        margin-top: -70px;
-    }
-
-    .user-cards {
-        margin-bottom: -50px;
-    }
-
-    .btn-action {
-        transform: scale(0.7);
-        top: calc(50% + 100px);
-        right: -5px;
-        height: 65px;
-        min-width: 92px;
-        width: 66px;
-    }
-
-}
+/* 
 
 @media only screen and (orientation: landscape) and (min-height: 360px) and (max-height: 479px) and (min-width: 768px) and (max-width: 991px) {
 
@@ -191,7 +210,7 @@
         margin-top: -65px;
         transform: scale(0.8);
     }
-}
+} */
 
 
 

@@ -1,6 +1,6 @@
 .card {
-    height: 150px;
-    width: 100px;
+    height: 24vh;
+    width: calc((24vh * 2) / 3);
 
     text-align: center;
     display: flex;
@@ -10,7 +10,7 @@
 }
 
 .card-pop:hover {
-    margin-top: -50px;
+    margin-top: -50%;
 }
 
 .pointer {

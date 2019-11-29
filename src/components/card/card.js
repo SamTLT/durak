@@ -22,6 +22,8 @@ const CardToShow = ({ onClick, card, pointer, isAvailable, type, cardSize }) => 
             classes.push(styles['card-unavailable']);
         }
 
+        classes.push('card');
+
         return classes.join(' ');
 
     };
@@ -72,13 +74,15 @@ const CardToShow = ({ onClick, card, pointer, isAvailable, type, cardSize }) => 
     }
 
     const setStyles = (card, type, size) => {
-        return { ...setBackground(card, type), ...setSize(size) };
+        // return { ...setBackground(card, type), ...setSize(size) };
+        return { ...setBackground(card, type) };
     }
 
     return (
         <div className={setClasses(pointer, type, isAvailable)}
             onClick={isAvailable ? () => onClick(card) : null}
-            style={setStyles(card, type, cardSize)}>
+            style={setStyles(card, type, cardSize)}
+        >
             {/* {card.name} */}
         </div>)
 }

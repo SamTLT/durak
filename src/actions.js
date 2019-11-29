@@ -1,4 +1,3 @@
-import Logic from './server/logic';
 import Server from './server/server';
 
 const server = new Server();
@@ -96,16 +95,6 @@ export const processCardSize = (width) => (dispatch, getState) => {
 
 }
 
-export const checkWinner = (user, cards) => (dispatch, getState) => {
-
-    const { deck } = getState();
-
-    if (deck.length === 0 && cards.length === 0) {
-        dispatch(setWinner(user));
-    }
-
-}
-
 export const endTurn = () => (dispatch, getState) => {
 
     // блокируем выбор карт после нажатия кнопки завершения хода
@@ -113,7 +102,6 @@ export const endTurn = () => (dispatch, getState) => {
     dispatch(setBtnIsActive(false));
 
     server.endTurn(getState().status).then(res => {
-        dispatch(setWinner(res.winner));
         dispatch(setCards(res.cards));
         dispatch(setEnemyCardsNumber(res.enemyCardsNum));
         dispatch(setCardsToUse(res.cardsToUse));
@@ -121,6 +109,10 @@ export const endTurn = () => (dispatch, getState) => {
         dispatch(beatCardOnTable(res.tableBeated));
         dispatch(setStatus(res.userStatus));
         dispatch(setCardsLeftInDeck(res.cardsLeft));
+
+        setTimeout(() => {
+            dispatch(setWinner(res.winner));
+        }, 500);
 
         dispatch(setBtnIsActive(true));
 
@@ -160,7 +152,6 @@ export const sendCardOnServer = (card) => (dispatch, getState) => {
     dispatch(setBtnIsActive(false));
 
     server.sendCard(card).then(res => {
-        dispatch(setWinner(res.winner));
         dispatch(setCards(res.cards));
         dispatch(setEnemyCardsNumber(res.enemyCardsNum));
         dispatch(setCardsToUse(res.cardsToUse));
@@ -168,6 +159,10 @@ export const sendCardOnServer = (card) => (dispatch, getState) => {
         dispatch(beatCardOnTable(res.tableBeated));
         dispatch(setStatus(res.userStatus));
         dispatch(setCardsLeftInDeck(res.cardsLeft));
+
+        setTimeout(() => {
+            dispatch(setWinner(res.winner));
+        }, 500);
 
         dispatch(setBtnIsActive(true));
     });

@@ -1,5 +1,6 @@
 .table {
-    min-height: 342px;
+    /* min-height: 342px; */
+    width: 100%;
 }
 
 .couples {

@@ -3,7 +3,7 @@
     display: inline-block;
     text-align: center;
     vertical-align: middle;
-    padding: 9px 24px;
+    padding: 2vh 3vh;
     border: 0px solid #a12727;
     border-radius: 7px;
     background: #ff4a4a;
@@ -11,7 +11,7 @@
     background: -moz-linear-gradient(top, #ff4a4a, #992727);
     background: linear-gradient(to bottom, #ff4a4a, #992727);
     text-shadow: #591717 1px 1px 1px;
-    font: normal normal bold 20px arial;
+    font: normal normal bold 4vh arial;
     color: #ffffff;
     text-decoration: none;
     width: 100%;
