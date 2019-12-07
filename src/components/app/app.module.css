@@ -133,23 +133,16 @@
     }
 }
 
-@media only screen and (min-height: 480px) and (max-height: 767px) and (min-width: 200px) and (max-width: 319px) {
-
-    /* .app {
-        width: 660px;
+@media only screen and (min-height: 480px) and (max-height: 639px) and (min-width: 200px) and (max-width: 319px) {
+    .app {
+        color: red;
     }
+}
 
-    .enemy {
-        margin-top: -90px;
+@media only screen and (min-height: 480px) and (max-height: 639px) and (min-width: 320px) and (max-width: 480px) {
+    .app {
+        color: white;
     }
-
-    .user-cards {
-        margin-bottom: -20px;
-    }
-
-    .table {
-        margin-top: -25px;
-    } */
 }
 
 /* 
