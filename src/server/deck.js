@@ -3,14 +3,17 @@ export default class Deck {
     this.types = ["clubs", "diamonds", "hearts", "spades"];
     this._minRank = 6;
     this._maxRank = 14;
-    this._initialDeck = this.shuffle(
-      this.get32Deck(this._minRank, this._maxRank, this.types)
+    this._initialDeck = this._shuffle(
+      this._get32Deck(this._minRank, this._maxRank, this.types)
     );
     this.trump = this._initialDeck[0];
-    this.deck = this.setRanksAccordingTrump([...this._initialDeck], this.trump);
+    this.deck = this._setRanksAccordingTrump(
+      [...this._initialDeck],
+      this.trump
+    );
   }
 
-  setRanksAccordingTrump = (deck, trump) => {
+  _setRanksAccordingTrump = (deck, trump) => {
     let newDeck = [];
 
     deck.forEach(card => {
@@ -23,7 +26,7 @@ export default class Deck {
     return newDeck;
   };
 
-  get32Deck = (minRank, maxRank, types) => {
+  _get32Deck = (minRank, maxRank, types) => {
     const rankNames = {
       11: "Jack",
       12: "Queen",
@@ -52,7 +55,7 @@ export default class Deck {
   };
 
   //Fisher–Yates shuffle
-  shuffle = deck => {
+  _shuffle = deck => {
     const array = [...deck];
     for (let i = array.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
