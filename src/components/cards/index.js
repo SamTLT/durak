@@ -1,3 +1,10 @@
-import Cards from './cards';
+import Cards from "./cards";
+import { connect } from "react-redux";
 
-export default Cards;
+const mapStateToPros = state => {
+  return {
+    cardSize: state.cardSize
+  };
+};
+
+export default connect(mapStateToPros)(Cards);

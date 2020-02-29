@@ -1,3 +1,11 @@
-import Deck from './deck';
+import Deck from "./deck";
+import { connect } from "react-redux";
 
-export default Deck;
+const mapStateToPros = state => {
+  return {
+    trump: state.trump,
+    cardsLeft: state.cardsLeftInDeck
+  };
+};
+
+export default connect(mapStateToPros)(Deck);
